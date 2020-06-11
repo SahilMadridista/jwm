@@ -21,6 +21,7 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 import com.example.jabwemate.consts.SharedPrefConsts;
 import com.example.jabwemate.model.Owner;
@@ -30,6 +31,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -156,46 +158,80 @@ public class SignUpActivity extends AppCompatActivity {
 
         progressDialog.show();
 
+        FirebaseUser user = firebaseAuth.getCurrentUser();
+        assert user!=null;
+
         firebaseAuth.createUserWithEmailAndPassword(email,password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful()){
 
-                            UserID = firebaseAuth.getCurrentUser().getUid();
-                            DocumentReference documentReference = firestore.collection("Users")
-                                    .document(UserID);
-
-                            Owner owner = new Owner();
-
-                            owner.name = name;
-                            owner.email = email;
-                            owner.phone = phone;
-                            owner.password = password;
-                            owner.city = city;
-
-                            documentReference.set(owner).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            firebaseAuth.getCurrentUser().sendEmailVerification()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
-                                public void onSuccess(Void aVoid) {
+                                public void onComplete(@NonNull Task<Void> task) {
 
-                                    SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                                    SharedPreferences.Editor editor = preferences.edit();
-                                    editor.putInt("login", SharedPrefConsts.USER_LOGIN);
-                                    editor.apply();
+                                    if(task.isSuccessful()){
 
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(),"Profile created",
-                                            Toast.LENGTH_LONG).show();
-                                    startActivity(new Intent(SignUpActivity.this,HomePage.class));
-                                    finish();
+                                        UserID = firebaseAuth.getCurrentUser().getUid();
+                                        DocumentReference documentReference = firestore.collection("Users")
+                                                .document(UserID);
 
-                                }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
+                                        Owner owner = new Owner();
+
+                                        owner.name = name;
+                                        owner.email = email;
+                                        owner.phone = phone;
+                                        owner.password = password;
+                                        owner.city = city;
+
+                                        documentReference.set(owner).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                            @Override
+                                            public void onSuccess(Void aVoid) {
+
+                                                /*SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                                                SharedPreferences.Editor editor = preferences.edit();
+                                                editor.putInt("login", SharedPrefConsts.USER_LOGIN);
+                                                editor.apply();*/
+
+                                                progressDialog.dismiss();
+                                                Toast.makeText(SignUpActivity.this,"Registered successfully."+
+                                                                "Please check your email to verify your account."+
+                                                        "You can login after clicking on verification link.",Toast.LENGTH_LONG).show();
+
+                                                EmailEditText.setText("");
+                                                PasswordEditText.setText("");
+                                                PhoneEditText.setText("");
+                                                CityEditText.setText("");
+                                                NameEditText.setText("");
+
+                                            }
+                                        }).addOnFailureListener(new OnFailureListener() {
+                                            @Override
+                                            public void onFailure(@NonNull Exception e) {
+
+                                            }
+                                        });
+
+
+
+                                    }
+
+                                    else{
+
+                                        Toast.makeText(SignUpActivity.this,"Error occurred: " +
+                                                task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                                        progressDialog.dismiss();
+                                        finish();
+
+
+                                    }
 
                                 }
                             });
+
+
 
                         }
                         else {

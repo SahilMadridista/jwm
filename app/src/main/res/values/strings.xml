@@ -26,6 +26,10 @@
     <string name="city">Name your city</string>
     <string name="already">Already have an account ?</string>
     <string name="error_toast">Some error occurred. Please check your details or internet connection</string>
+    <string name="linksent">Registered successfully. Please check your email to verify your account.</string>
+    <string name="youcan">You can login after clicking on verification link.</string>
+    <string name="pleaseverify">Please verify your email address before login.</string>
+
 
     //Menu items
 

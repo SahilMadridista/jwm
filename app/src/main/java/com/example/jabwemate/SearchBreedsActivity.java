@@ -1,7 +1,6 @@
 package com.example.jabwemate;
 
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
 public class SearchBreedsActivity extends AppCompatActivity {
