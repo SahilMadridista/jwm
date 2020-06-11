@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "78236145741",
+    "firebase_url": "https://jab-we-mate-310c1.firebaseio.com",
+    "project_id": "jab-we-mate-310c1",
+    "storage_bucket": "jab-we-mate-310c1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:78236145741:android:89f368279eceb727d46404",
+        "android_client_info": {
+          "package_name": "com.example.jabwemate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "78236145741-5dsgaq61hsj1t0code5vs3gnaqt1s6fs.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.jabwemate",
+            "certificate_hash": "0324f856462be6d4f61b03f1941ce3596a7d0aac"
+          }
+        },
+        {
+          "client_id": "78236145741-fkmalusvu1rskhvjb55ao02pvllg5r5o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGSFH5-jcMYP7JnKowZR4VVNB8m3b8sdM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "78236145741-fkmalusvu1rskhvjb55ao02pvllg5r5o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

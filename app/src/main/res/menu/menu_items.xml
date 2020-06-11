@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/your_info"
+        android:title="@string/your_info">
+    </item>
+
+    <item
+        android:id="@+id/your_pet_info"
+        android:title="@string/yourdogs">
+    </item>
+
+    <item android:id="@+id/search_breeds"
+        android:title="@string/search">
+
+    </item>
+
+    <item
+        android:id="@+id/sign_out"
+        android:title="@string/sign_out">
+    </item>
+
+</menu>

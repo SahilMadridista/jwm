@@ -1,0 +1,74 @@
+<resources>
+    <string name="app_name">Jab we mate</string>
+
+    // Splash Screen
+
+    <string name="welcome">WELCOME</string>
+    <string name="bestplacetofind">A place to find perfect partner for your dog</string>
+
+    //Login page
+
+    <string name="email">Type your email</string>
+    <string name="pass">Type your password</string>
+    <string name="login">Click to login</string>
+    <string name="loginText">LOGIN</string>
+    <string name="showpass">Show Password</string>
+    <string name="donot">Don\'t have an account ?</string>
+    <string name="registertext">Register</string>
+
+    //Sign up page
+
+    <string name="typename">Type your name</string>
+    <string name="typephone">Type your phone</string>
+    <string name="signup">Click to register</string>
+    <string name="registerCaps">REGISTER</string>
+    <string name="loginTextSmall">Login</string>
+    <string name="city">Name your city</string>
+    <string name="already">Already have an account ?</string>
+    <string name="error_toast">Some error occurred. Please check your details or internet connection</string>
+
+    //Menu items
+
+    <string name="your_info">Your information</string>
+    <string name="yourdogs">Your dogs</string>
+    <string name="sign_out">Sign out</string>
+    <string name="search">Search for breeds</string>
+
+    //Add dog activity
+
+    <string name="addhead">ADD YOUR DOG</string>
+    <string name="addphoto">Add photo</string>
+    <string name="dogname">Enter your dog\'s name</string>
+    <string name="dogage">Enter your dog\'s age</string>
+    <string name="gender">Gender</string>
+    <string name="dogbreed">Enter your dog\'s breed</string>
+    <string name="addDog">Add details</string>
+    <string name="additional">Additional information</string>
+
+    <string-array name="ageArray">
+
+        <item>Age</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+        <item>6</item>
+        <item>7</item>
+        <item>8</item>
+        <item>9</item>
+        <item>10</item>
+        <item>11</item>
+        <item>12</item>
+        <item>13</item>
+        <item>14</item>
+        <item>15</item>
+        <item>16</item>
+        <item>17</item>
+        <item>18</item>
+        <item>19</item>
+        <item>20</item>
+
+    </string-array>
+
+</resources>
