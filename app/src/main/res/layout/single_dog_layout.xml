@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:background="#B0FFD800">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="180dp"
+            android:layout_height="180dp"
+            android:id="@+id/cardview_dog_image"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:background="@color/colorPrimaryDark"
+            android:scaleType="centerCrop">
+
+        </ImageView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:padding="3dp"
+            android:textSize="23sp"
+            android:id="@+id/dog_name_text"
+            android:fontFamily="@font/bold"
+            android:layout_marginTop="35dp"
+            android:layout_toRightOf="@id/cardview_dog_image"
+            android:layout_toEndOf="@id/cardview_dog_image"
+            android:textAlignment="center">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Age"
+            android:padding="3dp"
+            android:layout_below="@id/dog_name_text"
+            android:textSize="23sp"
+            android:id="@+id/dog_age_text"
+            android:fontFamily="@font/regular"
+            android:layout_toRightOf="@id/cardview_dog_image"
+            android:layout_toEndOf="@id/cardview_dog_image"
+            android:textAlignment="center">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Breed"
+            android:padding="3dp"
+            android:layout_below="@id/dog_age_text"
+            android:textSize="23sp"
+            android:id="@+id/dog_breed_text"
+            android:fontFamily="@font/regular"
+            android:layout_toRightOf="@id/cardview_dog_image"
+            android:layout_toEndOf="@id/cardview_dog_image"
+            android:textAlignment="center">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Gender"
+            android:padding="3dp"
+            android:layout_below="@id/dog_breed_text"
+            android:textSize="23sp"
+            android:id="@+id/dog_gender_text"
+            android:fontFamily="@font/regular"
+            android:layout_toRightOf="@id/cardview_dog_image"
+            android:layout_toEndOf="@id/cardview_dog_image"
+            android:textAlignment="center">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Owner: "
+            android:id="@+id/owner_name_head_text"
+            android:layout_marginLeft="20dp"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_below="@id/cardview_dog_image"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone: "
+            android:textStyle="bold"
+            android:id="@+id/owner_phone_text"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_below="@id/owner_name_head_text"
+            android:textSize="20sp">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"
+            android:layout_toRightOf="@id/owner_name_head_text"
+            android:id="@+id/owner_name"
+            android:layout_below="@id/cardview_dog_image"
+            android:textSize="20sp">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/owner_phone_text"
+            android:id="@+id/owner_phone"
+            android:layout_below="@id/owner_name"
+            android:textSize="20sp">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City: "
+            android:textStyle="bold"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:id="@+id/owner_city_text"
+            android:layout_below="@id/owner_phone_text"
+            android:textSize="20sp"
+            android:background="15dp">
+
+        </TextView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="City name"
+            android:textStyle="bold"
+            android:layout_toRightOf="@id/owner_city_text"
+            android:id="@+id/owner_city"
+            android:layout_below="@id/owner_phone_text"
+            android:textSize="20sp"
+            android:layout_marginBottom="15dp">
+
+        </TextView>
+
+
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

@@ -45,6 +45,11 @@
     <string name="addDog">Add details</string>
     <string name="additional">Additional information</string>
 
+    // Search breeds activity
+
+    <string name="searchbreeds">Type a breed name here</string>
+    <string name="searchbutton">Click to search</string>
+
     <string-array name="ageArray">
 
         <item>Age</item>
