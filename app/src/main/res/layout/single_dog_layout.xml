@@ -144,8 +144,7 @@
             android:layout_marginStart="20dp"
             android:id="@+id/owner_city_text"
             android:layout_below="@id/owner_phone_text"
-            android:textSize="20sp"
-            android:background="15dp">
+            android:textSize="20sp">
 
         </TextView>
 

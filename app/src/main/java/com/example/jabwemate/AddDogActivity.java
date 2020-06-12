@@ -13,8 +13,10 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.webkit.MimeTypeMap;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -51,7 +53,7 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class AddDogActivity extends AppCompatActivity {
+public class AddDogActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private Spinner AgeSpinner;
     private ImageView DogImage;
@@ -67,8 +69,8 @@ public class AddDogActivity extends AppCompatActivity {
     private StorageReference reference;
     private Uri imageUri = null;
     private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
-    String currentPhotoPath,path;
-
+    private String[] age = {"Age", "1", "2", "3", "4", "5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
+String Age="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,20 +96,15 @@ public class AddDogActivity extends AppCompatActivity {
 
         UserID = firebaseAuth.getCurrentUser().getUid();
 
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.ageArray,
-                android.R.layout.simple_spinner_item);
-
+        ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,age);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         AgeSpinner.setAdapter(adapter);
+        AgeSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
 
         AddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-               Uri uri  = Uri.parse("/storage/emulated/0/Pictures/s"+timeStamp+".jpg");
-                path=uri.toString();
-               // takePictureIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, uri);
+                Intent takePictureIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(takePictureIntent, CAMERA_REQUEST);
             }
         });
@@ -115,154 +112,58 @@ public class AddDogActivity extends AppCompatActivity {
         AddDetails.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (DogName.getText().toString().trim().isEmpty()) {
+                    DogName.setError("Required!!");
+                    Toast.makeText(AddDogActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                } else if (DogGender.getText().toString().trim().isEmpty()) {
+                    DogGender.setError("Required!!");
+                    Toast.makeText(AddDogActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                }else if (DogBreed.getText().toString().trim().isEmpty()) {
+                    DogBreed.setError("Required!!");
+                    Toast.makeText(AddDogActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                }
+                else if (Age.isEmpty() || Age.compareTo("Age") == 0) {
+                    Toast.makeText(AddDogActivity.this, "Please select age", Toast.LENGTH_SHORT).show();
+                }else
                 addDogDetails();
 
             }
         });
 
     }
-    private void askCameraPermissions() {
-        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
-        }else {
-            dispatchTakePictureIntent();
-        }
 
-    }
+
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == CAMERA_PERM_CODE){
-            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                dispatchTakePictureIntent();
-            }else {
-                Toast.makeText(this, "Camera Permission is Required to Use camera.", Toast.LENGTH_SHORT).show();
-            }
+    public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
+                Age = age[position];
         }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        Toast.makeText(AddDogActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+
     }
 
 
-    /* @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == MY_CAMERA_PERMISSION_CODE) {
-            if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                Toast.makeText(this, "camera permission granted", Toast.LENGTH_LONG).show();
-                Intent cameraIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
-                cameraIntent.setType("image/*");
-                startActivityForResult(cameraIntent, CAMERA_REQUEST);
-            } else {
-                Toast.makeText(this, "camera permission denied", Toast.LENGTH_LONG).show();
-            }
-        }
-    }
-*/
-    private void dispatchTakePictureIntent() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            imageUri = data.getData();
             try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-
-            }
-            System.out.println("Phto file is............." + photoFile);
-            System.out.println("current photo path is............." + currentPhotoPath);
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(this,
-                        "com.example.android.fileprovider",
-                        photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
+                DogImage.setImageBitmap(bitmap);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
-
-  /*  @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == CAMERA_REQUEST){
-            if(resultCode == Activity.RESULT_OK){
-                File f = new File(currentPhotoPath);
-                DogImage.setImageURI(Uri.fromFile(f));
-                Log.d("tag", "Absolute Url of Image is " + Uri.fromFile(f));
-
-                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                Uri contentUri = Uri.fromFile(f);
-                mediaScanIntent.setData(contentUri);
-                this.sendBroadcast(mediaScanIntent);
-                this.imageUri=contentUri;
-
-               // uploadImageToFirebase(f.getName(),contentUri);
-
-
-
-            }
-
-        }
-    }*/
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        System.out.println("result ....................."+resultCode+"............"+RESULT_OK);
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK ) {
-
-            File file = new File(path);
-            imageUri= Uri.fromFile(file);
-            //imageUri = data.getData();
-            System.out.println("Uri is......................"+imageUri);
-            DogImage.setImageURI(imageUri);
-            /*StorageReference fileref = reference.child(UserID).child("image");
-
-            fileref.putFile(imageUri)
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-
-                            //dataUpdate();
-                            Toast.makeText(AddDogActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(AddDogActivity.this,HomePage.class));
-                            finish();
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-
-                    Toast.makeText(AddDogActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-
-                }
-            });*/
-
-        }
-    }
-
-  private File createImageFile() throws IOException {
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-//        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-
-        File image = File.createTempFile(
-                imageFileName,  //prefix
-                ".jpg",         //suffix
-                storageDir      // directory
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
-
 
     private void addDogDetails() {
         if (imageUri != null) {
 
-            StorageReference fileref = reference.child(UserID).child("image");
+            StorageReference fileref = reference.child(UserID).child(DogName.getText().toString().trim()).child("image");
 
             fileref.putFile(imageUri)
                     .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -303,14 +204,16 @@ public class AddDogActivity extends AppCompatActivity {
         dogs.put("Name", dogName);
         dogs.put("Breed", dogBreed);
         dogs.put("Gender", dogGender);
+        dogs.put("Age",Age);
         dogs.put("name",ownername);
         dogs.put("phone",ownerphone);
+        dogs.put("UID",UserID);
 
         dogs_db.collection("Dogs").document().set(dogs)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        Toast.makeText(AddDogActivity.this, "Job Created", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddDogActivity.this, "Dog Profile Created", Toast.LENGTH_SHORT).show();
                         finish();
                     }
                 })

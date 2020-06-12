@@ -19,7 +19,6 @@ import maes.tech.intentanim.CustomIntent;
 public class HomePage extends AppCompatActivity {
 
     androidx.appcompat.widget.Toolbar toolbar;
-    FloatingActionButton FAB;
     private FirebaseAuth firebaseAuth;
 
     @Override
@@ -29,17 +28,8 @@ public class HomePage extends AppCompatActivity {
 
         firebaseAuth = FirebaseAuth.getInstance();
 
-        FAB = findViewById(R.id.fab);
         toolbar = findViewById(R.id.home_page_toolbar);
         setSupportActionBar(toolbar);
-
-        FAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(HomePage.this,AddDogActivity.class));
-                CustomIntent.customType(HomePage.this,"bottom-to-up");
-            }
-        });
 
 
     }
@@ -66,7 +56,7 @@ public class HomePage extends AppCompatActivity {
             case R.id.your_pet_info:
 
                 // Add Code here
-                Toast.makeText(getApplicationContext(), "Your pet information Clicked", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(HomePage.this,myDog.class));
                 break;
 
             case R.id.search_breeds:

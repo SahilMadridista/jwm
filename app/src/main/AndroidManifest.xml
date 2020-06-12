@@ -4,8 +4,8 @@
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -14,9 +14,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ChangePasswordActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".YourInformationActivity"></activity>
+        <activity android:name=".myDog"></activity>
+        <activity
+            android:name=".ChangePasswordActivity"
+            android:parentActivityName=".YourInformationActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".YourInformationActivity"
             android:parentActivityName=".HomePage"
@@ -47,6 +49,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.android.fileprovider"
@@ -54,11 +57,8 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/file_paths"></meta-data>
+                android:resource="@xml/file_paths" />
         </provider>
-
     </application>
-
-    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
