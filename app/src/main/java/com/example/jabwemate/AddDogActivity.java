@@ -77,6 +77,9 @@ String Age="";
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dog);
 
+        Intent intent = getIntent();
+        ownername =intent.getStringExtra("Owner Name");
+        ownerphone =intent.getStringExtra("Owner Phone");
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         reference = FirebaseStorage.getInstance().getReference("dogimages/");
@@ -172,7 +175,7 @@ String Age="";
 
                             dataUpdate();
                             Toast.makeText(AddDogActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(AddDogActivity.this,HomePage.class));
+                            startActivity(new Intent(AddDogActivity.this,myDog.class));
                             finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -198,7 +201,6 @@ String Age="";
         String dogBreed = DogBreed.getText().toString().trim();
         String dogGender = DogGender.getText().toString().trim();
 
-        getOwner();
         Map<String, Object> dogs = new LinkedHashMap<>();
 
         dogs.put("Name", dogName);
@@ -225,21 +227,5 @@ String Age="";
                 });
     }
 
-    public void getOwner() {
-        DocumentReference documentReference = firestore.collection("Users").document(UserID);
-        documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-                DocumentSnapshot documentSnapshot = task.getResult();
-                assert documentSnapshot != null;
-
-                ownername = String.valueOf(documentSnapshot.getString("name"));
-                ownerphone = String.valueOf(documentSnapshot.getString("phone"));
-
-            }
-        });
-
-    }
 
 }
