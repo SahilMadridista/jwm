@@ -54,8 +54,7 @@ public class YourInformationActivity extends AppCompatActivity {
     ChangePasswordText.setOnClickListener(new View.OnClickListener() {
       @Override
       public void onClick(View view) {
-        //startActivity(new Intent(UserProfile.this, ChangePassword.class));
-
+        startActivity(new Intent(YourInformationActivity.this, ChangePasswordActivity.class));
       }
     });
 

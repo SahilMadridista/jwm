@@ -64,6 +64,14 @@
     <string name="change">Change password</string>
     <string name="canchange">You can edit your name and phone number by clicking on it.</string>
 
+    // Change password activity
+
+    <string name="changepass">Change your password</string>
+    <string name="oldpassword">Type old password</string>
+    <string name="newpassword">Type new password</string>
+    <string name="confirmnewpassword">Type new password again</string>
+    <string name="cnf">Confirm</string>
+
 
     <string-array name="ageArray">
 

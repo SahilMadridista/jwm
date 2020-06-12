@@ -59,7 +59,7 @@ public class HomePage extends AppCompatActivity {
             case R.id.your_info:
 
                 // Add code here
-                Toast.makeText(getApplicationContext(), "Your information Clicked", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(),YourInformationActivity.class));
                 break;
 
 
@@ -71,7 +71,7 @@ public class HomePage extends AppCompatActivity {
 
             case R.id.search_breeds:
 
-                Toast.makeText(getApplicationContext(), "Search breeds Clicked", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(getApplicationContext(),SearchBreedsActivity.class));
                 break;
 
 
