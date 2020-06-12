@@ -130,17 +130,27 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(task.isSuccessful()){
 
-                            SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
-                            SharedPreferences.Editor editor = preferences.edit();
-                            editor.putInt("login", SharedPrefConsts.USER_LOGIN);
-                            editor.apply();
+                            if(firebaseAuth.getCurrentUser().isEmailVerified()){
 
-                            startActivity(new Intent(getApplicationContext(),HomePage.class));
-                            finish();
+                                SharedPreferences preferences = getApplicationContext().getSharedPreferences("MyPref", MODE_PRIVATE);
+                                SharedPreferences.Editor editor = preferences.edit();
+                                editor.putInt("login", SharedPrefConsts.USER_LOGIN);
+                                editor.apply();
 
-                            LoginProgressDialog.dismiss();
-                            Toast.makeText(LoginActivity.this,"You are logged in",
-                                    Toast.LENGTH_LONG).show();
+                                startActivity(new Intent(getApplicationContext(),HomePage.class));
+                                finish();
+                                LoginProgressDialog.dismiss();
+                                Toast.makeText(LoginActivity.this,"You are logged in",
+                                        Toast.LENGTH_LONG).show();
+
+                            }
+
+                            else {
+                                Toast.makeText(LoginActivity.this,R.string.pleaseverify,Toast.LENGTH_LONG)
+                                        .show();
+                                LoginProgressDialog.dismiss();
+                            }
+
 
                         }else {
 

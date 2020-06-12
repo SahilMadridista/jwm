@@ -11,9 +11,9 @@
         android:title="@string/yourdogs">
     </item>
 
-    <item android:id="@+id/search_breeds"
+    <item
+        android:id="@+id/search_breeds"
         android:title="@string/search">
-
     </item>
 
     <item

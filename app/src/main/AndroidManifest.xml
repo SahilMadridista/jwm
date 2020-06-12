@@ -14,9 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchBreedsActivity"
+        <activity android:name=".ChangePasswordActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".YourInformationActivity"></activity>
+        <activity
+            android:name=".YourInformationActivity"
             android:parentActivityName=".HomePage"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SearchBreedsActivity"
+            android:parentActivityName=".HomePage"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AddDogActivity"
             android:parentActivityName=".HomePage"

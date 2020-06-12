@@ -34,8 +34,7 @@
             android:layout_marginTop="35dp"
             android:layout_toRightOf="@id/cardview_dog_image"
             android:layout_toEndOf="@id/cardview_dog_image"
-            android:textAlignment="center"
-            android:gravity="center_horizontal">
+            android:textAlignment="center">
 
         </TextView>
 
@@ -50,8 +49,7 @@
             android:fontFamily="@font/regular"
             android:layout_toRightOf="@id/cardview_dog_image"
             android:layout_toEndOf="@id/cardview_dog_image"
-            android:textAlignment="center"
-            android:gravity="center_horizontal">
+            android:textAlignment="center">
 
         </TextView>
 
@@ -66,8 +64,7 @@
             android:fontFamily="@font/regular"
             android:layout_toRightOf="@id/cardview_dog_image"
             android:layout_toEndOf="@id/cardview_dog_image"
-            android:textAlignment="center"
-            android:gravity="center_horizontal">
+            android:textAlignment="center">
 
         </TextView>
 
@@ -82,8 +79,7 @@
             android:fontFamily="@font/regular"
             android:layout_toRightOf="@id/cardview_dog_image"
             android:layout_toEndOf="@id/cardview_dog_image"
-            android:textAlignment="center"
-            android:gravity="center_horizontal">
+            android:textAlignment="center">
 
         </TextView>
 
@@ -148,7 +144,8 @@
             android:layout_marginStart="20dp"
             android:id="@+id/owner_city_text"
             android:layout_below="@id/owner_phone_text"
-            android:textSize="20sp">
+            android:textSize="20sp"
+            android:background="15dp">
 
         </TextView>
 
