@@ -54,6 +54,17 @@
     <string name="searchbreeds">Type a breed name here</string>
     <string name="searchbutton">Click to search</string>
 
+
+    // User profile
+
+    <string name="userproftext">Your information</string>
+    <string name="name">Name</string>
+    <string name="profile_email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="change">Change password</string>
+    <string name="canchange">You can edit your name and phone number by clicking on it.</string>
+
+
     <string-array name="ageArray">
 
         <item>Age</item>
@@ -79,5 +90,6 @@
         <item>20</item>
 
     </string-array>
+
 
 </resources>
