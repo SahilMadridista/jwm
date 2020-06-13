@@ -27,26 +27,27 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Dog,HomeAdapter.HomeVi
       holder.DogName.setText(model.getName());
       holder.DogBreed.setText(model.getBreed());
       holder.DogGender.setText(model.getGender());
-       Picasso
-               .get()
-               .load(Uri.parse(model.getURL()))
-               .fetch(new Callback() {
-                   @Override
-                   public void onSuccess() {
-                       Picasso
-                               .get()
-                               .load(Uri.parse(model.getURL()))
-                               .fit()
-                               .centerCrop()
-                               .into(holder.DogImage);
-                   }
+      if(model.getURL()!=null) {
+          Picasso
+                  .get()
+                  .load(Uri.parse(model.getURL()))
+                  .fetch(new Callback() {
+                      @Override
+                      public void onSuccess() {
+                          Picasso
+                                  .get()
+                                  .load(Uri.parse(model.getURL()))
+                                  .fit()
+                                  .centerCrop()
+                                  .into(holder.DogImage);
+                      }
 
-                   @Override
-                   public void onError(Exception e) {
+                      @Override
+                      public void onError(Exception e) {
 
-                   }
-               });
-
+                      }
+                  });
+      }
 
 
    }
