@@ -187,8 +187,6 @@ String Age="",url;
 
                            setUrl();
                             Toast.makeText(AddDogActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(AddDogActivity.this,myDog.class));
-                            finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
