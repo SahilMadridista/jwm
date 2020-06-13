@@ -230,6 +230,7 @@ String Age="",url;
                     @Override
                     public void onSuccess(Void aVoid) {
 
+
                         progressDialog.dismiss();
                         Toast.makeText(AddDogActivity.this, "Dog Profile Created", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(AddDogActivity.this,myDog.class));
