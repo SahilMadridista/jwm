@@ -70,8 +70,9 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
     private StorageReference reference;
     private Uri imageUri = null;
     private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
+    private FirebaseStorage firebaseStorage;
     private String[] age = {"Age", "1", "2", "3", "4", "5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
-String Age="";
+String Age="",url;
 
     private ProgressDialog progressDialog;
 
@@ -105,6 +106,7 @@ String Age="";
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         UserID = firebaseAuth.getCurrentUser().getUid();
+        firebaseStorage = FirebaseStorage.getInstance();
 
         ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,age);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -183,7 +185,7 @@ String Age="";
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                            dataUpdate();
+                           setUrl();
                             Toast.makeText(AddDogActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
                             startActivity(new Intent(AddDogActivity.this,myDog.class));
                             finish();
@@ -206,7 +208,7 @@ String Age="";
 
     }
 
-    public void dataUpdate() {
+    public void dataUpdate(String URL) {
 
         String dogName = DogName.getText().toString().trim();
         String dogBreed = DogBreed.getText().toString().trim();
@@ -221,11 +223,14 @@ String Age="";
         dogs.put("name",ownername);
         dogs.put("phone",ownerphone);
         dogs.put("UID",UserID);
+        dogs.put("URL",URL);
 
         dogs_db.collection("Dogs").document().set(dogs)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+
+
                         progressDialog.dismiss();
                         Toast.makeText(AddDogActivity.this, "Dog Profile Created", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(AddDogActivity.this,myDog.class));
@@ -240,6 +245,18 @@ String Age="";
                     }
                 });
     }
+    public void setUrl() {
+        StorageReference storageReference = firebaseStorage.getReference();
+        storageReference.child("dogimages/").child(UserID).child(DogName.getText().toString().trim()).child("image").getDownloadUrl()
+                .addOnSuccessListener(new OnSuccessListener<Uri>() {
 
+                    @Override
+                    public void onSuccess(Uri uri) {
+                        url = uri.toString();
+                   dataUpdate(url);
+
+                    }
+                });
+       }
 
 }

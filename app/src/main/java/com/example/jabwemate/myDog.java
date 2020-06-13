@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.jabwemate.HomePadeAdapter.HomeAdapter;
 import com.example.jabwemate.model.Dog;
+import com.example.jabwemate.model.Upload;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -90,42 +91,6 @@ public class myDog extends AppCompatActivity {
         adapter.stopListening();
     }
 
-    /*
-    public void getData(String email) {
-        db.collection("dogs")
-                .whereEqualTo("Email", email)
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-
-                                name= document.getString("Name");
-                                breed = document.getString("Breed");
-                                jobs.add(new listt2(tittle, companyName, salary, id));
-                            }
-                            ListAdaptar2 listAdapter = new ListAdaptar2(getActivity(), jobs);
-                            ListView listView;
-                            listView = (ListView) getView().findViewById(R.id.jobs_list_view);
-                            listView.setAdapter(listAdapter);
-                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                                    listt2 l=jobs.get(position);
-                                    Intent intent=new Intent(getActivity(),JobView.class);
-                                    intent.putExtra("Id",l.getId());
-                                    startActivity(intent);
-                                }
-                            });
-
-                        } else {
-                            Toast.makeText(getActivity(), "Error!!", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                });
-    }
-    */
 
 
     public void getName() {

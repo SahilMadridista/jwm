@@ -4,6 +4,7 @@ package com.example.jabwemate.model;
 
 public class Dog {
 
+    private String URL;
     private String Name;
     private String Gender;
     private String Breed;
@@ -12,10 +13,11 @@ public class Dog {
         //Empty constructor needed
     }
 
-   public Dog(String name, String gender, String breed) {
+   public Dog(String name, String gender, String breed,String URL) {
       Name = name;
       Gender = gender;
       Breed = breed;
+      this.URL=URL;
    }
 
    public String getName() {
@@ -29,4 +31,8 @@ public class Dog {
    public String getBreed() {
       return Breed;
    }
+
+    public String getURL() {
+        return URL;
+    }
 }
