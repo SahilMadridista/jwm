@@ -2,37 +2,48 @@ package com.example.jabwemate;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Toast;
-import com.example.jabwemate.consts.SharedPrefConsts;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
 
-import maes.tech.intentanim.CustomIntent;
+import com.example.jabwemate.HomePadeAdapter.HomeAdapter;
+import com.example.jabwemate.consts.SharedPrefConsts;
+import com.example.jabwemate.model.Dog;
+import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 
 public class HomePage extends AppCompatActivity {
 
     androidx.appcompat.widget.Toolbar toolbar;
-    private FirebaseAuth firebaseAuth;
+    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
+    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+    private CollectionReference collectionReference =firestore.collection("Dogs");
+    String userID;
+    private HomeAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
 
-        firebaseAuth = FirebaseAuth.getInstance();
-
         toolbar = findViewById(R.id.home_page_toolbar);
         setSupportActionBar(toolbar);
 
+        loadDogData();
+
 
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -86,4 +97,37 @@ public class HomePage extends AppCompatActivity {
         return true;
 
     }
+
+    private void loadDogData() {
+
+        assert firebaseAuth.getCurrentUser() != null;
+
+        userID = firebaseAuth.getCurrentUser().getUid();
+
+        Query query = collectionReference.orderBy("Age", Query.Direction.ASCENDING);
+        FirestoreRecyclerOptions<Dog> options = new FirestoreRecyclerOptions.Builder<Dog>()
+                .setQuery(query, Dog.class)
+                .build();
+
+        adapter = new HomeAdapter(options);
+
+        RecyclerView recyclerView = findViewById(R.id.home_page_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        adapter.startListening();
+    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+        adapter.stopListening();
+    }
+
+
 }

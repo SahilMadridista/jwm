@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".myDog"></activity>
+        <activity android:name=".myDog"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".HomePage"></activity>
         <activity
             android:name=".ChangePasswordActivity"
             android:parentActivityName=".YourInformationActivity"

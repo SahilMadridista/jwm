@@ -2,6 +2,7 @@ package com.example.jabwemate;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -72,6 +73,8 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
     private String[] age = {"Age", "1", "2", "3", "4", "5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
 String Age="";
 
+    private ProgressDialog progressDialog;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -91,6 +94,10 @@ String Age="";
         DogGender = findViewById(R.id.gender_edittext);
         AddPhoto = findViewById(R.id.add_photo_button);
         AddDetails = findViewById(R.id.add_details_button);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Uploading data...");
 
 
         toolbar = findViewById(R.id.add_dog_toolbar);
@@ -164,8 +171,11 @@ String Age="";
     }
 
     private void addDogDetails() {
+
+
         if (imageUri != null) {
 
+            progressDialog.show();
             StorageReference fileref = reference.child(UserID).child(DogName.getText().toString().trim()).child("image");
 
             fileref.putFile(imageUri)
@@ -183,6 +193,7 @@ String Age="";
                 public void onFailure(@NonNull Exception e) {
 
                     Toast.makeText(AddDogActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+                    progressDialog.dismiss();
 
                 }
             });
@@ -215,13 +226,16 @@ String Age="";
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
+                        progressDialog.dismiss();
                         Toast.makeText(AddDogActivity.this, "Dog Profile Created", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(AddDogActivity.this,myDog.class));
                         finish();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
                         Toast.makeText(AddDogActivity.this, "Error!", Toast.LENGTH_SHORT).show();
                     }
                 });

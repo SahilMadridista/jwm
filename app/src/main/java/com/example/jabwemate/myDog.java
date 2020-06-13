@@ -31,6 +31,8 @@ public class myDog extends AppCompatActivity {
     private FirebaseFirestore firestore;
     private String UserID;
     private String ownername, ownerphone;
+    androidx.appcompat.widget.Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,10 @@ public class myDog extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         UserID = firebaseAuth.getCurrentUser().getUid();
+
+        toolbar = findViewById(R.id.your_dog_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         getName();
     }
