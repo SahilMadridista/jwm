@@ -187,8 +187,6 @@ String Age="",url;
 
                            setUrl();
                             Toast.makeText(AddDogActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
-                            startActivity(new Intent(AddDogActivity.this,myDog.class));
-                            finish();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -229,12 +227,11 @@ String Age="",url;
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-
-
                         progressDialog.dismiss();
-                        Toast.makeText(AddDogActivity.this, "Dog Profile Created", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(AddDogActivity.this,myDog.class));
                         finish();
+                        Toast.makeText(AddDogActivity.this, "Dog Profile Created", Toast.LENGTH_SHORT).show();
+
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
