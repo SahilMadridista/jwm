@@ -19,14 +19,14 @@
             android:layout_marginLeft="20dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/white"
+            android:background="@color/colorPrimaryDark"
             android:padding="2dp">
 
             <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 android:id="@+id/cardview_dog_image"
-                android:background="@color/colorPrimaryDark"
                 android:scaleType="centerCrop">
 
             </ImageView>
@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:text="Name"
                 android:textSize="20sp"
-                android:textColor="@color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:id="@+id/dog_name_text"
                 android:fontFamily="@font/regular"
                 android:textAlignment="center">
@@ -57,7 +57,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Breed"
-                android:textColor="@color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:layout_below="@id/dog_name_text"
                 android:textSize="17sp"
                 android:id="@+id/dog_breed_text"
@@ -70,7 +70,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Gender"
-                android:textColor="@color/white"
+                android:textColor="@color/colorPrimaryDark"
                 android:layout_below="@id/dog_breed_text"
                 android:textSize="17sp"
                 android:id="@+id/dog_gender_text"
