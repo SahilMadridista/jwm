@@ -21,9 +21,9 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Dog,HomeAdapter.HomeVi
    @Override
    protected void onBindViewHolder(@NonNull HomeViewHolder holder, int position, @NonNull Dog model) {
 
-      holder.DogName.setText(model.getDogname());
-      holder.DogBreed.setText(model.getDogbreed());
-      holder.DogGender.setText(model.getDoggender());
+      holder.DogName.setText(model.getName());
+      holder.DogBreed.setText(model.getBreed());
+      holder.DogGender.setText(model.getGender());
 
    }
 

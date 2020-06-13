@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Owner {
 
-    public String name;
+    public String username;
     public String email;
     public String phone;
     public String password;

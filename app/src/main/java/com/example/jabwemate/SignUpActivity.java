@@ -180,7 +180,7 @@ public class SignUpActivity extends AppCompatActivity {
 
                                         Owner owner = new Owner();
 
-                                        owner.name = name;
+                                        owner.username = name;
                                         owner.email = email;
                                         owner.phone = phone;
                                         owner.password = password;
