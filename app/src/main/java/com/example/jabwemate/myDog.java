@@ -41,7 +41,7 @@ public class myDog extends AppCompatActivity {
     private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
     private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
     private String UserID;
-    private String ownername, ownerphone;
+    private String ownername, ownerphone,city;
     androidx.appcompat.widget.Toolbar toolbar;
     private HomeAdapter adapter;
     private CollectionReference collectionReference = firestore.collection("Dogs");
@@ -103,6 +103,7 @@ public class myDog extends AppCompatActivity {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 ownername = String.valueOf(documentSnapshot.getString("name"));
                 ownerphone = String.valueOf(documentSnapshot.getString("phone"));
+                city=String.valueOf(documentSnapshot.getString("city"));
                 FAB = findViewById(R.id.fab);
                 FAB.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -110,6 +111,7 @@ public class myDog extends AppCompatActivity {
                         Intent i = new Intent(myDog.this,AddDogActivity.class);
                         i.putExtra("Owner Name", ownername);
                         i.putExtra("Owner Phone", ownerphone);
+                        i.putExtra("City",city);
                         startActivity(i);
                         CustomIntent.customType(myDog.this,"bottom-to-up");
                     }
