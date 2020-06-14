@@ -38,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     CheckBox LoginCheckBox;
     private FirebaseAuth firebaseAuth;
     private ProgressDialog LoginProgressDialog;
+    TextView ForgetPass;
 
 
     @Override
@@ -56,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         EmailEditText = findViewById(R.id.email_sign_in_editText);
         PasswordEditText = findViewById(R.id.password_sign_in_editText);
         LoginCheckBox = findViewById(R.id.login_checkBox);
+        ForgetPass = findViewById(R.id.forget_pass_text);
 
         RegisterText = findViewById(R.id.registerText);
         LoginButton = findViewById(R.id.login_button);
@@ -84,6 +86,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 logInUser();
+            }
+        });
+
+        ForgetPass.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this,ForgetPasswordActivity.class));
             }
         });
 

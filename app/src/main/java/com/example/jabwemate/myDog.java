@@ -7,6 +7,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -120,4 +123,58 @@ public class myDog extends AppCompatActivity {
         });
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.add_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.add_dog_menu_option:
+                // Open activity for adding the dog
+
+                OpenfromMenu();
+
+                break;
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+
+        return true;
+
+    }
+
+    private void OpenfromMenu() {
+
+        DocumentReference documentReference = firestore.collection("Users").document(UserID);
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                ownername = String.valueOf(documentSnapshot.getString("name"));
+                ownerphone = String.valueOf(documentSnapshot.getString("phone"));
+                Intent i = new Intent(myDog.this,AddDogActivity.class);
+                i.putExtra("Owner Name", ownername);
+                i.putExtra("Owner Phone", ownerphone);
+                startActivity(i);
+                CustomIntent.customType(myDog.this,"bottom-to-up");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Toast.makeText(myDog.this, "Error!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+    }
+
+
 }

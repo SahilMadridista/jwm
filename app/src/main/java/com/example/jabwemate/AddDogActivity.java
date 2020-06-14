@@ -88,6 +88,8 @@ String Age="",url;
         firestore = FirebaseFirestore.getInstance();
         reference = FirebaseStorage.getInstance().getReference("dogimages/");
 
+        Toast.makeText(getApplicationContext(),ownername+ownerphone,Toast.LENGTH_SHORT).show();
+
         AgeSpinner = findViewById(R.id.age_spinner);
         DogImage = findViewById(R.id.dog_image);
         DogName = findViewById(R.id.dog_name_edit_text);
@@ -157,7 +159,6 @@ String Age="",url;
 
     }
 
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -173,7 +174,6 @@ String Age="",url;
     }
 
     private void addDogDetails() {
-
 
         if (imageUri != null) {
 
@@ -224,6 +224,8 @@ String Age="",url;
         dogs.put("phone",ownerphone);
         dogs.put("UID",UserID);
         dogs.put("URL",URL);
+
+        //TODO - convert breed to lowercase while storing
 
         dogs_db.collection("Dogs").document().set(dogs)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

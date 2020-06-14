@@ -77,4 +77,5 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Dog,HomeAdapter.HomeVi
 
       }
    }
+
 }

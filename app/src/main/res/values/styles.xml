@@ -20,4 +20,10 @@
 
     </style>
 
+    <style name="radio" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorAccent">@color/white</item>
+
+    </style>
+
 </resources>

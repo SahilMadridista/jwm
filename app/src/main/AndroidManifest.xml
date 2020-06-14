@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DetailActivity"></activity>
+        <activity android:name=".ForgetPasswordActivity"></activity>
+        <activity android:name=".DetailActivity" />
         <activity
             android:name=".myDog"
             android:parentActivityName=".HomePage"
@@ -28,7 +29,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".AddDogActivity"
-            android:parentActivityName=".HomePage"
+            android:parentActivityName=".myDog"
             android:screenOrientation="portrait" />
         <activity
             android:name=".HomePage"
@@ -59,10 +60,10 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
 </manifest>
