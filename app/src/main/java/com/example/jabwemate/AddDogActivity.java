@@ -66,7 +66,7 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
     private String UserID;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
-    private String ownername, ownerphone;
+    private String ownername, ownerphone,city;
     private StorageReference reference;
     private Uri imageUri = null;
     private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
@@ -84,6 +84,7 @@ String Age="",url;
         Intent intent = getIntent();
         ownername =intent.getStringExtra("Owner Name");
         ownerphone =intent.getStringExtra("Owner Phone");
+        city=intent.getStringExtra("City");
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         reference = FirebaseStorage.getInstance().getReference("dogimages/");
@@ -222,6 +223,7 @@ String Age="",url;
         dogs.put("phone",ownerphone);
         dogs.put("UID",UserID);
         dogs.put("URL",URL);
+        dogs.put("city",city);
 
         dogs_db.collection("Dogs").document().set(dogs)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {

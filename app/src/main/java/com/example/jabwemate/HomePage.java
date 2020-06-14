@@ -115,6 +115,7 @@ public class HomePage extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
 
+
     }
 
    @Override

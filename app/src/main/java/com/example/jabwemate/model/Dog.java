@@ -9,6 +9,7 @@ public class Dog {
     private String Gender;
     private String Breed;
 
+
     public Dog(){
         //Empty constructor needed
     }
@@ -18,6 +19,7 @@ public class Dog {
       Gender = gender;
       Breed = breed;
       this.URL=URL;
+
    }
 
    public String getName() {
@@ -35,4 +37,6 @@ public class Dog {
     public String getURL() {
         return URL;
     }
+
+
 }
