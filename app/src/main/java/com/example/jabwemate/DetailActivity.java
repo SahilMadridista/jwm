@@ -24,7 +24,6 @@ import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
 
-    androidx.appcompat.widget.Toolbar toolbar;
     private Button accept;
     private TextView Owner, Dog, Breed, Age, City, Gender;
     private String owner, dog, breed, age, city, gender, ID, URL;
@@ -35,9 +34,6 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-
-        toolbar = findViewById(R.id.descritpion_toolbar);
-        setSupportActionBar(toolbar);
 
         Owner = findViewById(R.id.detail_owner);
         Dog = findViewById(R.id.detail_dog);
@@ -93,28 +89,5 @@ public class DetailActivity extends AppCompatActivity {
         });
 
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.edit_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.your_info:
-                // Ad code for edit the details
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-
-    }
-
 
 }

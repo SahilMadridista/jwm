@@ -63,15 +63,16 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Dog,HomeAdapter.HomeVi
            @Override
            public void onClick(View view) {
 
-               DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
-               String g=snapshot.getId();
+
+              DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+              String g=snapshot.getId();
               Intent i=new Intent(view.getContext(),DetailActivity.class);
               i.putExtra("REF",g);
               view.getContext().startActivity(i);
 
            }
-       });
 
+       });
 
    }
 

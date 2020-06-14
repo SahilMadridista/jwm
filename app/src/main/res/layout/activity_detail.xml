@@ -7,27 +7,12 @@
     android:background="@drawable/dogdescriptionbg"
     tools:context=".DetailActivity">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/desc_app_bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/descritpion_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/colorPrimaryDark"
-            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light"></androidx.appcompat.widget.Toolbar>
-
-
-    </com.google.android.material.appbar.AppBarLayout>
 
     <RelativeLayout
         android:id="@+id/desc_image_layout"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:layout_below="@id/desc_app_bar_layout">
+        android:layout_marginTop="50dp">
 
         <ImageView
 
@@ -126,6 +111,7 @@
                 android:textSize="24sp"
                 android:id="@+id/detail_breed"/>
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layout_4"
             android:layout_width="match_parent"
@@ -142,7 +128,9 @@
                 android:layout_weight="2"
                 android:text="Gender"
                 android:textSize="24sp"
-                android:textColor="@color/blue"/>
+                android:textColor="@color/blue">
+
+            </TextView>
 
             <TextView
                 android:layout_width="0dp"
@@ -150,8 +138,12 @@
                 android:layout_weight="3"
                 android:text="owner"
                 android:textSize="24sp"
-                android:id="@+id/detail_gender"/>
+                android:id="@+id/detail_gender">
+
+            </TextView>
+
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layout_5"
             android:layout_width="match_parent"
@@ -168,7 +160,9 @@
                 android:layout_weight="2"
                 android:text="Age"
                 android:textSize="24sp"
-                android:textColor="@color/blue"/>
+                android:textColor="@color/blue">
+
+            </TextView>
 
             <TextView
                 android:layout_width="0dp"
@@ -176,8 +170,12 @@
                 android:layout_weight="3"
                 android:text="owner"
                 android:textSize="24sp"
-                android:id="@+id/detail_age"/>
+                android:id="@+id/detail_age">
+
+            </TextView>
+
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/layout_6"
             android:layout_width="match_parent"
@@ -194,7 +192,9 @@
                 android:layout_weight="2"
                 android:text="City"
                 android:textSize="24sp"
-                android:textColor="@color/blue"/>
+                android:textColor="@color/blue">
+
+            </TextView>
 
             <TextView
                 android:layout_width="0dp"
@@ -202,20 +202,24 @@
                 android:layout_weight="3"
                 android:text="owner"
                 android:textSize="24sp"
-                android:id="@+id/detail_city"/>
+                android:id="@+id/detail_city">
+
+            </TextView>
+
         </LinearLayout>
 
-<Button
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Accept"
-    android:textSize="22sp"
-    android:textColor="@color/white"
-    android:layout_alignParentBottom="true"
-    android:layout_marginBottom="18dp"
-    android:background="#0D47A1"
-    android:id="@+id/detail_accept"/>
-    </RelativeLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Accept"
+            android:textSize="22sp"
+            android:textColor="@color/white"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark"
+            android:id="@+id/detail_accept">
 
+        </Button>
+
+    </RelativeLayout>
 
 </RelativeLayout>
