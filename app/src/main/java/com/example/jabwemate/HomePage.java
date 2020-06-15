@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.example.jabwemate.HomePadeAdapter.HomeAdapter;
 import com.example.jabwemate.consts.SharedPrefConsts;
@@ -38,6 +41,8 @@ public class HomePage extends AppCompatActivity {
     RadioButton radioButton;
     Button SearchButton;
     EditText SearchBreed;
+    TextView Showing,Remove;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +55,15 @@ public class HomePage extends AppCompatActivity {
         SearchBreed = findViewById(R.id.breed_filter);
         SearchButton = findViewById(R.id.filter_button);
 
+        Showing = findViewById(R.id.showtext);
+        Remove = findViewById(R.id.filter_remove);
+
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Showing data...");
+
+        showAllDogs();
+
         SearchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -57,15 +71,77 @@ public class HomePage extends AppCompatActivity {
             }
         });
 
+        Remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showAllDogs();
+            }
+        });
+
+
+    }
+
+    private void showAllDogs() {
+
+        progressDialog.show();
+
+        Runnable progressRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                progressDialog.cancel();
+            }
+        };
+
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 1000);
+
+        Query query = collectionReference.orderBy("Name", Query.Direction.ASCENDING);
+
+        FirestoreRecyclerOptions<Dog> options = new FirestoreRecyclerOptions.Builder<Dog>()
+                .setQuery(query, Dog.class)
+                .build();
+
+        adapter = new HomeAdapter(options);
+
+        RecyclerView recyclerView = findViewById(R.id.home_page_recycler_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+
+        Remove.setVisibility(View.GONE);
+        Showing.setText(R.string.showingDogs);
+
 
     }
 
     private void loadFilterData() {
+
+        progressDialog.show();
+
+        Runnable progressRunnable = new Runnable() {
+
+            @Override
+            public void run() {
+                progressDialog.cancel();
+            }
+        };
+
+        Handler pdCanceller = new Handler();
+        pdCanceller.postDelayed(progressRunnable, 1000);
+
         int radioId = radioGroup.getCheckedRadioButtonId();
         radioButton = findViewById(radioId);
 
         String breedname = SearchBreed.getText().toString().trim();
         String gender = radioButton.getText().toString().trim();
+
+        if(breedname.isEmpty()){
+            SearchBreed.setError("Please enter breed");
+            SearchBreed.requestFocus();
+            return;
+        }
 
         assert firebaseAuth.getCurrentUser() != null;
 
@@ -86,6 +162,8 @@ public class HomePage extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
         adapter.startListening();
 
+        Showing.setText(R.string.filter);
+        Remove.setVisibility(View.VISIBLE);
 
     }
 
@@ -146,5 +224,7 @@ public class HomePage extends AppCompatActivity {
         return true;
 
     }
+
+
 
 }
