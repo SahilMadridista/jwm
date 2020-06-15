@@ -125,12 +125,15 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    tools:ignore="NestedWeights"
+                    android:background="@drawable/desc_text_bg">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dogbreedhead"
+                        android:layout_margin="5dp"
                         android:textColor="@color/gray"
                         android:layout_centerHorizontal="true">
 
@@ -152,12 +155,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="@drawable/desc_text_bg">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/doggenderhead"
+                        android:layout_margin="5dp"
                         android:textColor="@color/gray"
                         android:layout_centerHorizontal="true">
 
@@ -189,12 +194,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    tools:ignore="NestedWeights">
+                    tools:ignore="NestedWeights"
+                    android:background="@drawable/desc_text_bg">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/ownernamehead"
+                        android:layout_margin="5dp"
                         android:textColor="@color/gray"
                         android:layout_centerHorizontal="true">
 
@@ -216,12 +223,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="@drawable/desc_text_bg">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/ownerphonehead"
+                        android:layout_margin="5dp"
                         android:textColor="@color/gray"
                         android:layout_centerHorizontal="true">
 
@@ -253,12 +262,14 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    tools:ignore="NestedWeights">
+                    tools:ignore="NestedWeights"
+                    android:background="@drawable/desc_text_bg">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/owneremailhead"
+                        android:layout_margin="5dp"
                         android:textColor="@color/gray"
                         android:layout_centerHorizontal="true">
 
@@ -271,7 +282,7 @@
                         android:textColor="@color/black"
                         android:id="@+id/detail_owner_email"
                         android:layout_centerInParent="true"
-                        android:textSize="15sp">
+                        android:textSize="12sp">
 
                     </TextView>
 
@@ -280,12 +291,14 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1">
+                    android:layout_weight="1"
+                    android:background="@drawable/desc_text_bg">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/ownercityhead"
+                        android:layout_margin="5dp"
                         android:textColor="@color/gray"
                         android:layout_centerHorizontal="true">
 

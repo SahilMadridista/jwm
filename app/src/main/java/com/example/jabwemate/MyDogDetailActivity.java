@@ -12,12 +12,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
-
 public class MyDogDetailActivity extends AppCompatActivity {
 
    private Button EditDetails;
@@ -95,8 +93,6 @@ public class MyDogDetailActivity extends AppCompatActivity {
             URL = String.valueOf(documentSnapshot.getString("URL"));
             ownerid = String.valueOf(documentSnapshot.getString("UID"));
 
-
-
             if (URL != null) {
                Picasso
                        .get()
@@ -127,7 +123,6 @@ public class MyDogDetailActivity extends AppCompatActivity {
 
          }
       });
-
 
 
    }

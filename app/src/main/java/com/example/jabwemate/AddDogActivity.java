@@ -89,8 +89,6 @@ String Age="",url;
         firestore = FirebaseFirestore.getInstance();
         reference = FirebaseStorage.getInstance().getReference("dogimages/");
 
-        Toast.makeText(getApplicationContext(),ownername+ownerphone,Toast.LENGTH_SHORT).show();
-
         AgeSpinner = findViewById(R.id.age_spinner);
         DogImage = findViewById(R.id.dog_image);
         DogName = findViewById(R.id.dog_name_edit_text);
