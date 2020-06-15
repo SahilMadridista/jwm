@@ -85,9 +85,10 @@
     <Spinner
         android:id="@+id/age_spinner"
         android:layout_width="100dp"
-        android:layout_height="48dp"
+        android:layout_height="56dp"
         android:background="@drawable/spinner_bg"
         android:textAlignment="center"
+        android:layout_marginTop="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.102"
@@ -97,31 +98,7 @@
 
     </Spinner>
 
-    <EditText
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:id="@+id/gender_edittext"
-        android:drawableLeft="@drawable/gender_icon"
-        android:drawableStart="@drawable/gender_icon"
-        android:background="@drawable/add_dog_et_bg"
-        android:paddingStart="10dp"
-        android:inputType="textCapWords"
-        android:paddingLeft="10dp"
-        android:paddingEnd="10dp"
-        android:paddingRight="10dp"
-        android:fontFamily="@font/regular"
-        android:drawablePadding="5dp"
-        android:hint="@string/gender"
-        android:textColor="@color/white"
-        android:textColorHint="@color/silver"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.594"
-        app:layout_constraintStart_toEndOf="@+id/age_spinner"
-        app:layout_constraintTop_toBottomOf="@+id/dog_name_edit_text"
-        app:layout_constraintVertical_bias="0.054">
 
-    </EditText>
 
     <EditText
         android:id="@+id/dog_breed_edit_text"
@@ -148,7 +125,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/age_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/gender_radio_group"
         app:layout_constraintVertical_bias="0.063" />
 
     <Button
@@ -163,6 +140,58 @@
         app:layout_constraintStart_toStartOf="parent">
 
     </Button>
+
+    <TextView
+        android:id="@+id/dog_gender_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Gender"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:layout_marginRight="80dp"
+        tools:layout_editor_absoluteX="201dp"
+        tools:layout_editor_absoluteY="409dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.594"
+        app:layout_constraintStart_toEndOf="@+id/age_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/dog_name_edit_text"
+        app:layout_constraintVertical_bias="0.054" />
+
+    <RadioGroup
+        android:id="@+id/gender_radio_group"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="192dp"
+        tools:layout_editor_absoluteY="428dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.594"
+        app:layout_constraintStart_toEndOf="@+id/age_spinner"
+        app:layout_constraintTop_toBottomOf="@+id/dog_gender_text"
+        app:layout_constraintVertical_bias="0.054"
+        android:orientation="horizontal"
+        android:paddingLeft="18dp">
+
+        <RadioButton
+            android:id="@+id/su_male"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Male"
+            android:textColor="@color/white"
+            android:checked="false"/>
+
+        <RadioButton
+            android:id="@+id/su_female"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Female"
+            android:textColor="@color/white"
+            android:checked="false"/>
+
+    </RadioGroup>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

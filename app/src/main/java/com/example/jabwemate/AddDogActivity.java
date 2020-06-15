@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -73,6 +74,8 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
     private FirebaseStorage firebaseStorage;
     private String[] age = {"Age", "1", "2", "3", "4", "5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
 String Age="",url;
+    private RadioButton gendermale, genderfemale;
+    private boolean male, female;
 
     private ProgressDialog progressDialog;
 
@@ -93,7 +96,8 @@ String Age="",url;
         DogImage = findViewById(R.id.dog_image);
         DogName = findViewById(R.id.dog_name_edit_text);
         DogBreed = findViewById(R.id.dog_breed_edit_text);
-        DogGender = findViewById(R.id.gender_edittext);
+        gendermale = findViewById(R.id.su_male);
+        genderfemale = findViewById(R.id.su_female);
         AddPhoto = findViewById(R.id.add_photo_button);
         AddDetails = findViewById(R.id.add_details_button);
 
@@ -128,9 +132,8 @@ String Age="",url;
                 if (DogName.getText().toString().trim().isEmpty()) {
                     DogName.setError("Required!!");
                     Toast.makeText(AddDogActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                } else if (DogGender.getText().toString().trim().isEmpty()) {
-                    DogGender.setError("Required!!");
-                    Toast.makeText(AddDogActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                } else if (genderCheck().isEmpty()) {
+                    Toast.makeText(AddDogActivity.this, "Please select Gender", Toast.LENGTH_SHORT).show();
                 }else if (DogBreed.getText().toString().trim().isEmpty()) {
                     DogBreed.setError("Required!!");
                     Toast.makeText(AddDogActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
@@ -145,6 +148,18 @@ String Age="",url;
 
     }
 
+    public String genderCheck()
+    {
+        String g="";
+        male = gendermale.isChecked();
+        female = genderfemale.isChecked();
+        if(male)
+            g="Male";
+        if(female)
+            g="Female";
+
+        return g;
+    }
 
 
     @Override
@@ -209,7 +224,7 @@ String Age="",url;
 
         String dogName = DogName.getText().toString().trim();
         String dogBreed = DogBreed.getText().toString().trim();
-        String dogGender = DogGender.getText().toString().trim();
+        String dogGender =genderCheck();
 
         Map<String, Object> dogs = new LinkedHashMap<>();
 
