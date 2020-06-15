@@ -232,7 +232,7 @@ String Age="",url;
 
 
                         progressDialog.dismiss();
-                        Toast.makeText(AddDogActivity.this, "Dog Profile Created", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddDogActivity.this, "Dog details added", Toast.LENGTH_SHORT).show();
                         startActivity(new Intent(AddDogActivity.this,myDog.class));
                         finish();
                     }
