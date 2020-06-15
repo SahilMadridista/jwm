@@ -16,6 +16,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.jabwemate.HomePadeAdapter.HomeAdapter;
+import com.example.jabwemate.HomePadeAdapter.MyDogAdapter;
 import com.example.jabwemate.model.Dog;
 import com.example.jabwemate.model.Upload;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -43,7 +44,7 @@ public class myDog extends AppCompatActivity {
     private String UserID;
     private String ownername, ownerphone,city;
     androidx.appcompat.widget.Toolbar toolbar;
-    private HomeAdapter adapter;
+    private MyDogAdapter adapter;
     private CollectionReference collectionReference = firestore.collection("Dogs");
 
     @Override
@@ -73,7 +74,7 @@ public class myDog extends AppCompatActivity {
                 .setQuery(query, Dog.class)
                 .build();
 
-        adapter = new HomeAdapter(options);
+        adapter = new MyDogAdapter(options);
 
         RecyclerView recyclerView = findViewById(R.id.your_dogs_recycler_view);
         recyclerView.setHasFixedSize(true);
@@ -93,8 +94,6 @@ public class myDog extends AppCompatActivity {
         super.onStop();
         adapter.stopListening();
     }
-
-
 
     public void getName() {
         DocumentReference documentReference = firestore.collection("Users").document(UserID);
@@ -125,58 +124,5 @@ public class myDog extends AppCompatActivity {
         });
 
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.add_menu,menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-
-        switch (item.getItemId()) {
-
-            case R.id.add_dog_menu_option:
-                // Open activity for adding the dog
-
-                OpenfromMenu();
-
-                break;
-
-            default:
-                return super.onOptionsItemSelected(item);
-
-        }
-
-        return true;
-
-    }
-
-    private void OpenfromMenu() {
-
-        DocumentReference documentReference = firestore.collection("Users").document(UserID);
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                ownername = String.valueOf(documentSnapshot.getString("name"));
-                ownerphone = String.valueOf(documentSnapshot.getString("phone"));
-                Intent i = new Intent(myDog.this,AddDogActivity.class);
-                i.putExtra("Owner Name", ownername);
-                i.putExtra("Owner Phone", ownerphone);
-                startActivity(i);
-                CustomIntent.customType(myDog.this,"bottom-to-up");
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(myDog.this, "Error!", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-
-    }
-
 
 }

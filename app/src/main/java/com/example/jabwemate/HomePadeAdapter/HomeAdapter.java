@@ -30,7 +30,7 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Dog,HomeAdapter.HomeVi
    public HomeAdapter(@NonNull FirestoreRecyclerOptions<Dog> options) {
       super(options);
    }
-    private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
+   private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
 
    @Override
    protected void onBindViewHolder(@NonNull final HomeViewHolder holder, final int position, @NonNull final Dog model) {
