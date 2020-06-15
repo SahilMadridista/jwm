@@ -102,6 +102,13 @@
     <string name="accept">Accept</string>
 
 
+    //HomePage
+
+    <string name="showingDogs">Showing dogs</string>
+    <string name="filter">Filter applied</string>
+    <string name="remove">Remove filter</string>
+
+
     <string-array name="ageArray">
 
         <item>Age</item>
