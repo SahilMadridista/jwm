@@ -15,10 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jabwemate.DetailActivity;
 import com.example.jabwemate.HomePage;
+import com.example.jabwemate.MyDogDetailActivity;
 import com.example.jabwemate.R;
 import com.example.jabwemate.model.Dog;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -27,10 +29,12 @@ import com.squareup.picasso.Picasso;
 
 public class HomeAdapter extends FirestoreRecyclerAdapter<Dog,HomeAdapter.HomeViewHolder> {
 
+    private FirebaseAuth firebaseAuth;
+    private String UserID;
    public HomeAdapter(@NonNull FirestoreRecyclerOptions<Dog> options) {
       super(options);
    }
-   private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
+
 
    @Override
    protected void onBindViewHolder(@NonNull final HomeViewHolder holder, final int position, @NonNull final Dog model) {
@@ -59,17 +63,23 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Dog,HomeAdapter.HomeVi
                       }
                   });
       }
+       firebaseAuth = FirebaseAuth.getInstance();
+       UserID = firebaseAuth.getCurrentUser().getUid();
        holder.itemView.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View view) {
 
-
               DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
               String g=snapshot.getId();
-              Intent i=new Intent(view.getContext(),DetailActivity.class);
-              i.putExtra("REF",g);
-              view.getContext().startActivity(i);
-
+              if(model.getUID().compareTo(UserID)==0){
+                  Intent i=new Intent(view.getContext(), MyDogDetailActivity.class);
+                  i.putExtra("REF",g);
+                  view.getContext().startActivity(i);
+              }else {
+                  Intent i = new Intent(view.getContext(), DetailActivity.class);
+                  i.putExtra("REF", g);
+                  view.getContext().startActivity(i);
+              }
            }
 
        });

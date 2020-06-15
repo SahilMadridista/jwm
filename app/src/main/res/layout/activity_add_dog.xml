@@ -179,6 +179,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Male"
+            android:theme="@style/radio"
             android:textColor="@color/white"
             android:checked="false"/>
 
@@ -188,6 +189,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Female"
+            android:theme="@style/radio"
             android:textColor="@color/white"
             android:checked="false"/>
 
