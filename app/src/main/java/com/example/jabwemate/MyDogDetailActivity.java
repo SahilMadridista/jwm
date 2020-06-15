@@ -53,17 +53,7 @@ public class MyDogDetailActivity extends AppCompatActivity {
 
 
       setView();
-
-      EditDetails.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View v) {
-            Toast.makeText(MyDogDetailActivity.this, "Edit details clicked", Toast.LENGTH_SHORT).show();
          }
-      });
-
-
-
-   }
 
    private void setView() {
 
@@ -119,6 +109,21 @@ public class MyDogDetailActivity extends AppCompatActivity {
             Age.setText(age);
             City.setText(city);
             Gender.setText(gender);
+
+            EditDetails.setOnClickListener(new View.OnClickListener() {
+               @Override
+               public void onClick(View v) {
+                 Intent i=new Intent(MyDogDetailActivity.this,EditDogDetails.class);
+                 i.putExtra("Name",dog);
+                 i.putExtra("Breed",breed);
+                 i.putExtra("Age",age);
+                 i.putExtra("Gender",gender);
+                 i.putExtra("Url",URL);
+                 i.putExtra("REG",ID);
+                 startActivity(i);
+                 finish();
+               }
+            });
 
 
          }

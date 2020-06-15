@@ -59,7 +59,7 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
 
     private Spinner AgeSpinner;
     private ImageView DogImage;
-    private EditText DogName, DogBreed, DogGender;
+    private EditText DogName, DogBreed;
     private Button AddPhoto, AddDetails;
     private androidx.appcompat.widget.Toolbar toolbar;
     private static final int CAMERA_REQUEST = 1888;
@@ -76,7 +76,6 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
 String Age="",url;
     private RadioButton gendermale, genderfemale;
     private boolean male, female;
-
     private ProgressDialog progressDialog;
 
     @Override
