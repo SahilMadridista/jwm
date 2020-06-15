@@ -223,7 +223,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
         dogs.put("Gender", dogGender);
         dogs.put("Age", Age);
         dogs.put("URL", URL);
-        
+
         dogs_db.collection("Dogs").document(ID).update(dogs)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -232,7 +232,9 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
 
                         progressDialog.dismiss();
                         Toast.makeText(EditDogDetails.this, "Dog details Updated", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(EditDogDetails.this, myDog.class));
+                        Intent i=new Intent(EditDogDetails.this, MyDogDetailActivity.class);
+                        i.putExtra("REF",ID);
+                        startActivity(i);
                         finish();
                     }
                 })
