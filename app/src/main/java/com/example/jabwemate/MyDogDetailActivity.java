@@ -53,7 +53,7 @@ public class MyDogDetailActivity extends AppCompatActivity {
 
 
       setView();
-         }
+   }
 
    private void setView() {
 

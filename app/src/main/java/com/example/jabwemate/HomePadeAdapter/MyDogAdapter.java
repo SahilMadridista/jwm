@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jabwemate.DetailActivity;
 import com.example.jabwemate.MyDogDetailActivity;
 import com.example.jabwemate.R;
+import com.example.jabwemate.RequestDetails;
 import com.example.jabwemate.model.Dog;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
@@ -65,7 +66,7 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
 
             DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
             String g=snapshot.getId();
-            Intent i=new Intent(view.getContext(), MyDogDetailActivity.class);
+            Intent i=new Intent(view.getContext(), RequestDetails.class);
             i.putExtra("REF",g);
             view.getContext().startActivity(i);
 

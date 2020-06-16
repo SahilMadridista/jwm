@@ -26,4 +26,27 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/clickforreq"
+        android:id="@+id/text_head"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/appbarlayout"
+        android:textColor="@color/black"
+        android:fontFamily="@font/regular"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center">
+
+    </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/req_recycler_view"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/text_head">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
 </RelativeLayout>

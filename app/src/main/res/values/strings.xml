@@ -116,6 +116,9 @@
     <string name="dognameselect">Dog name</string>
     <string name="makereq">Make request</string>
 
+    // Req activity
+
+    <string name="clickforreq">Showing the list of your dogs. Click to see the request details.</string>
 
 
     <string-array name="ageArray">
