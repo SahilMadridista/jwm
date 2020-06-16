@@ -26,7 +26,7 @@ public class HomeAdapter extends FirestoreRecyclerAdapter<Dog,HomeAdapter.HomeVi
 
     private FirebaseAuth firebaseAuth;
     private String UserID;
-   public HomeAdapter(@NonNull FirestoreRecyclerOptions<Dog> options) {
+    public HomeAdapter(@NonNull FirestoreRecyclerOptions<Dog> options) {
       super(options);
    }
 

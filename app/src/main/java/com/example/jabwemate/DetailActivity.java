@@ -20,7 +20,7 @@ import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private Button accept;
+    private Button MakeRequest;
     private TextView Owner, Dog, Breed, Age, City, Gender;
     private String owner, dog, breed, age, city, gender, ID, URL;
     private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
@@ -38,7 +38,7 @@ public class DetailActivity extends AppCompatActivity {
         Age = findViewById(R.id.detail_age);
         City = findViewById(R.id.detail_city);
         Gender = findViewById(R.id.detail_gender);
-        accept = findViewById(R.id.detail_accept);
+        MakeRequest = findViewById(R.id.detail_make_req);
         image = findViewById(R.id.desc_dog_image);
 
         progressDialog = new ProgressDialog(this);
@@ -50,10 +50,10 @@ public class DetailActivity extends AppCompatActivity {
 
         setView();
 
-        accept.setOnClickListener(new View.OnClickListener() {
+        MakeRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DetailActivity.this, "Accepted", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getApplicationContext(),ChooseDogForRequestActivity.class));
             }
         });
     }

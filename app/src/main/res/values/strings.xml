@@ -109,6 +109,15 @@
     <string name="remove">Remove filter</string>
 
 
+    // Choose dog activity
+
+    <string name="choose">Choose a dog to send request</string>
+    <string name="sendreq">Send request</string>
+    <string name="dognameselect">Dog name</string>
+    <string name="makereq">Make request</string>
+
+
+
     <string-array name="ageArray">
 
         <item>Age</item>

@@ -51,8 +51,6 @@ public class myDog extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_dog);
-//        firebaseAuth = FirebaseAuth.getInstance();
-//        firestore = FirebaseFirestore.getInstance();
 
         assert firebaseAuth.getCurrentUser()!=null;
         UserID = firebaseAuth.getCurrentUser().getUid();

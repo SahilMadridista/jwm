@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ChooseDogForRequestActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/choose_dog_headtext"
+        android:text="@string/choose"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_alignParentTop="true"
+        android:textStyle="bold"
+        android:textSize="17sp"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true">
+
+    </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/choose_dog_recycler_view"
+        android:layout_below="@id/choose_dog_headtext"
+        android:layout_above="@+id/send_req_button"
+        android:layout_marginTop="5dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/sendreq"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/send_req_button">
+
+    </Button>
+
+</RelativeLayout>

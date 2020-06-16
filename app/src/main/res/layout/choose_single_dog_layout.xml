@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_margin="10dp"
+    android:background="@drawable/card_bg">
+
+    <RelativeLayout
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:id="@+id/choose_dog_image_layout">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/choose_dog_card_image"
+            android:scaleType="centerCrop"
+            android:src="@drawable/default_dog"
+            app:civ_border_width="2dp"
+            app:civ_border_color="@color/colorPrimaryDark">
+
+        </de.hdodenhof.circleimageview.CircleImageView>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/dognameselect"
+        android:textColor="@color/black"
+        android:textSize="17sp"
+        android:id="@+id/choose_dog_name_text"
+        android:textAlignment="center"
+        android:layout_toLeftOf="@id/choose_dog_radioGroup"
+        android:layout_toStartOf="@id/choose_dog_radioGroup"
+        android:layout_toRightOf="@id/choose_dog_image_layout"
+        android:layout_toEndOf="@id/choose_dog_image_layout"
+        android:layout_centerInParent="true">
+
+    </TextView>
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="20dp"
+        android:id="@+id/choose_dog_radioGroup">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleX="1.3"
+            android:scaleY="1.3"
+            android:id="@+id/choose_dog_radioButton">
+
+        </RadioButton>
+
+    </RadioGroup>
+
+</RelativeLayout>

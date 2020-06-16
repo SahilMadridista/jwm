@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_above="@id/detail_accept">
+            android:layout_above="@id/detail_make_req">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -324,9 +324,9 @@
 
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/detail_accept"
+            android:id="@+id/detail_make_req"
             android:layout_alignParentBottom="true"
-            android:text="@string/accept"
+            android:text="@string/makereq"
             android:textColor="@color/white"
             android:background="@color/colorPrimaryDark">
 

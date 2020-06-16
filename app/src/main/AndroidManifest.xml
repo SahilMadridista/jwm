@@ -9,17 +9,24 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RequestActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".HomePage"></activity>
-        <activity android:name=".EditDogDetails"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".MyDogDetailActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".ForgetPasswordActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".DetailActivity"
-            android:screenOrientation="portrait"/>
+        <activity android:name=".ChooseDogForRequestActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".RequestActivity"
+            android:parentActivityName=".HomePage"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".EditDogDetails"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyDogDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ForgetPasswordActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".DetailActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".myDog"
             android:parentActivityName=".HomePage"
@@ -69,10 +76,10 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
-    <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
 
 </manifest>

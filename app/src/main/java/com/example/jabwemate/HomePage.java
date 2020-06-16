@@ -55,6 +55,7 @@ public class HomePage extends AppCompatActivity {
         SearchBreed = findViewById(R.id.breed_filter);
         SearchButton = findViewById(R.id.filter_button);
 
+
         Showing = findViewById(R.id.showtext);
         Remove = findViewById(R.id.filter_remove);
 
