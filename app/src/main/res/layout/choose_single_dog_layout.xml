@@ -35,32 +35,22 @@
         android:textSize="17sp"
         android:id="@+id/choose_dog_name_text"
         android:textAlignment="center"
-        android:layout_toLeftOf="@id/choose_dog_radioGroup"
-        android:layout_toStartOf="@id/choose_dog_radioGroup"
+        android:layout_toLeftOf="@id/choose_dog_radioButton"
+        android:layout_toStartOf="@id/choose_dog_radioButton"
         android:layout_toRightOf="@id/choose_dog_image_layout"
         android:layout_toEndOf="@id/choose_dog_image_layout"
         android:layout_centerInParent="true">
 
     </TextView>
 
-    <RadioGroup
+    <RadioButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_marginRight="20dp"
-        android:id="@+id/choose_dog_radioGroup">
+        android:id="@+id/choose_dog_radioButton"/>
 
-        <RadioButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:scaleX="1.3"
-            android:scaleY="1.3"
-            android:id="@+id/choose_dog_radioButton">
-
-        </RadioButton>
-
-    </RadioGroup>
 
 </RelativeLayout>

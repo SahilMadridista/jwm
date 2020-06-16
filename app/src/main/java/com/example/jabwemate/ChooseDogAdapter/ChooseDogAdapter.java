@@ -17,6 +17,7 @@ import com.example.jabwemate.R;
 import com.example.jabwemate.model.Dog;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
@@ -28,6 +29,7 @@ public class ChooseDogAdapter extends FirestoreRecyclerAdapter<Dog, ChooseDogAda
    private Context context;
    private int selectedPosition = -1;
    private RadioButton lastCheckedRB = null;
+   private String id="";
 
    public ChooseDogAdapter(@NonNull FirestoreRecyclerOptions<Dog> options) {
       super(options);
@@ -59,7 +61,7 @@ public class ChooseDogAdapter extends FirestoreRecyclerAdapter<Dog, ChooseDogAda
                  });
       }
 
-      holder.choosedognametext.setTag(position);
+      /*holder.choosedognametext.setTag(position);
       holder.radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
          @Override
          public void onCheckedChanged(RadioGroup radioGroup, int i) {
@@ -71,8 +73,42 @@ public class ChooseDogAdapter extends FirestoreRecyclerAdapter<Dog, ChooseDogAda
             lastCheckedRB = checked_rb;
          }
       });
+
+       */
+
+      holder.radioButton.setChecked(position == selectedPosition);
+      holder.radioButton.setTag(position);
+      holder.radioButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+            String g=snapshot.getId();
+            id=g;
+          itemCheckChanged(v);
+           // Toast.makeText(v.getContext(),"item selected "+g,Toast.LENGTH_SHORT).show();
+         }
+      });
+      holder.itemView.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+            String g=snapshot.getId();
+            id=g;
+            View view=holder.radioButton;
+            itemCheckChanged(view);
+         }
+      });
+
    }
 
+   private void itemCheckChanged(View v) {
+      selectedPosition = (Integer) v.getTag();
+      notifyDataSetChanged();
+   }
+
+   public String getSelectedItem() {
+     return id;
+   }
 
    @NonNull
    @Override
@@ -86,14 +122,14 @@ public class ChooseDogAdapter extends FirestoreRecyclerAdapter<Dog, ChooseDogAda
 
       TextView choosedognametext;
       ImageView choosedogimage;
-      RadioGroup radioGroup;
+      RadioButton radioButton;
 
       public ChooseDogViewHoler(@NonNull View itemView) {
          super(itemView);
 
          choosedognametext = itemView.findViewById(R.id.choose_dog_name_text);
          choosedogimage = itemView.findViewById(R.id.choose_dog_card_image);
-         radioGroup = itemView.findViewById(R.id.choose_dog_radioGroup);
+         radioButton = itemView.findViewById(R.id.choose_dog_radioButton);
 
       }
    }

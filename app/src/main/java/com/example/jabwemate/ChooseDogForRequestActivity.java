@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -15,8 +16,10 @@ import com.example.jabwemate.ChooseDogAdapter.ChooseDogAdapter;
 import com.example.jabwemate.HomePadeAdapter.MyDogAdapter;
 import com.example.jabwemate.model.Dog;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -27,6 +30,8 @@ public class ChooseDogForRequestActivity extends AppCompatActivity {
    String UserID;
    Button SendReqButton;
    ChooseDogAdapter adapter;
+   private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
+   String senderId;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +41,11 @@ public class ChooseDogForRequestActivity extends AppCompatActivity {
               WindowManager.LayoutParams.FLAG_FULLSCREEN);
       setContentView(R.layout.activity_choose_dog_for_request);
 
+      Intent i=getIntent();
+      senderId=i.getStringExtra("REG");
       firebaseAuth = FirebaseAuth.getInstance();
       firestore = FirebaseFirestore.getInstance();
       SendReqButton = findViewById(R.id.send_req_button);
-
-      SendReqButton.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-            Toast.makeText(getApplicationContext(),"Clicked",Toast.LENGTH_LONG).show();
-         }
-      });
 
       CollectionReference collectionReference = firestore.collection("Dogs");
       UserID = firebaseAuth.getCurrentUser().getUid();
@@ -63,8 +63,31 @@ public class ChooseDogForRequestActivity extends AppCompatActivity {
       recyclerView.setLayoutManager(new LinearLayoutManager(this));
       recyclerView.setAdapter(adapter);
 
+      SendReqButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+            String id= adapter.getSelectedItem();
+            if(id==null || id.isEmpty())
+                Toast.makeText(ChooseDogForRequestActivity.this,"Please select a dog",Toast.LENGTH_SHORT).show();
+            else{
+           setArrayAccept(id,senderId);
+
+         }}
+      });
 
    }
+   public void setArrayAccept(String id,String id2){
+      dogs_db.collection("Dogs").document(id).update("Accept",FieldValue.arrayUnion(id2))
+              .addOnSuccessListener(new OnSuccessListener<Void>() {
+                  @Override
+                  public void onSuccess(Void aVoid) {
+                      startActivity(new Intent(ChooseDogForRequestActivity.this,HomePage.class));
+                      finish();
+                      Toast.makeText(ChooseDogForRequestActivity.this,"Request send",Toast.LENGTH_SHORT).show();
+                  }
+              });
+   }
+
 
    @Override
    protected void onStart() {

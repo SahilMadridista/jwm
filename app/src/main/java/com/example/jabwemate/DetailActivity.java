@@ -53,7 +53,9 @@ public class DetailActivity extends AppCompatActivity {
         MakeRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ChooseDogForRequestActivity.class));
+                Intent i=new Intent(getApplicationContext(),ChooseDogForRequestActivity.class);
+                i.putExtra("REG",ID);
+                startActivity(i);
             }
         });
     }
