@@ -1,6 +1,5 @@
 package com.example.jabwemate.HomePadeAdapter;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -8,13 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.jabwemate.DetailActivity;
-import com.example.jabwemate.HomePage;
 import com.example.jabwemate.MyDogDetailActivity;
 import com.example.jabwemate.R;
 import com.example.jabwemate.model.Dog;

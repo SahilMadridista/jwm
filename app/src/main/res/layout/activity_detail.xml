@@ -126,7 +126,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/desc_text_bg">
+                    android:background="@drawable/desc_text_bg"
+                    tools:ignore="NestedWeights">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -190,6 +191,7 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
+
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"

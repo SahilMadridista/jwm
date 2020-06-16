@@ -190,16 +190,24 @@ public class HomePage extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),YourInformationActivity.class));
                 break;
 
-
             case R.id.your_pet_info:
 
                 // Add Code here
-                startActivity(new Intent(HomePage.this,myDog.class));
+                startActivity(new Intent(getApplicationContext(),myDog.class));
                 break;
 
-            case R.id.search_breeds:
+            case R.id.requests:
 
-                startActivity(new Intent(getApplicationContext(),SearchBreedsActivity.class));
+                //Add code here
+
+                startActivity(new Intent(getApplicationContext(),RequestActivity.class));
+                break;
+
+            case R.id.shortlist:
+
+                // Add code here
+
+                startActivity(new Intent(getApplicationContext(), MyShortlistsActivity.class));
                 break;
 
 

@@ -12,8 +12,13 @@
     </item>
 
     <item
-        android:id="@+id/search_breeds"
-        android:title="@string/search">
+        android:id="@+id/requests"
+        android:title="@string/requests">
+    </item>
+
+    <item
+        android:id="@+id/shortlist"
+        android:title="@string/shortlist">
     </item>
 
     <item

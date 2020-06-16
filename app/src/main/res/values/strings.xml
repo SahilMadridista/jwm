@@ -36,7 +36,8 @@
     <string name="your_info">Your information</string>
     <string name="yourdogs">Your dogs</string>
     <string name="sign_out">Sign out</string>
-    <string name="search">Search for breeds</string>
+    <string name="requests">Requests</string>
+    <string name="shortlist">My shortlist</string>
 
     //Add dog activity
 

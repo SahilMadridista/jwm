@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jabwemate">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
@@ -14,10 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditDogDetails"></activity>
-        <activity android:name=".MyDogDetailActivity" />
-        <activity android:name=".ForgetPasswordActivity" />
-        <activity android:name=".DetailActivity" />
+        <activity android:name=".RequestActivity"
+            android:screenOrientation="portrait"
+            android:parentActivityName=".HomePage"></activity>
+        <activity android:name=".EditDogDetails"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".MyDogDetailActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ForgetPasswordActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".DetailActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".myDog"
             android:parentActivityName=".HomePage"
@@ -31,7 +33,7 @@
             android:parentActivityName=".HomePage"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".SearchBreedsActivity"
+            android:name=".MyShortlistsActivity"
             android:parentActivityName=".HomePage"
             android:screenOrientation="portrait" />
         <activity
@@ -67,5 +69,10 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>
