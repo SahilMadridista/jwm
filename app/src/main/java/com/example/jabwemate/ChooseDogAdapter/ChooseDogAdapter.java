@@ -76,7 +76,7 @@ public class ChooseDogAdapter extends FirestoreRecyclerAdapter<Dog, ChooseDogAda
             public void onClick(final View v) {
                 DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
                 SenderID = snapshot.getId();
-                dogs_db.collection("Dogs").document(ReceiverID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                dogs_db.collection("Dogs").document(SenderID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                        DocumentSnapshot documentSnapshot = task.getResult();
@@ -85,9 +85,9 @@ public class ChooseDogAdapter extends FirestoreRecyclerAdapter<Dog, ChooseDogAda
                        if (documentSnapshot.get("Pair") != null)
                           pair = (String.valueOf(documentSnapshot.get("Pair")));
 
-                        if (accept != null && accept.contains(SenderID)) {
+                        if (accept != null && accept.contains(ReceiverID)) {
                             Toast.makeText(v.getContext(), "Already Accept Send", Toast.LENGTH_SHORT).show();
-                        } else if (pair != null && pair.contains(SenderID)) {
+                        } else if (pair != null && pair.contains(ReceiverID)) {
                             Toast.makeText(v.getContext(), "Already In Pair", Toast.LENGTH_SHORT).show();
                         } else {
                            id=SenderID;
