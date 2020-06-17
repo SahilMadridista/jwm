@@ -128,8 +128,6 @@ public class PairDogDetailsActivity extends AppCompatActivity {
 
             Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
                     "mailto",Email.getText().toString(), null));
-            emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-            emailIntent.putExtra(Intent.EXTRA_TEXT, "Body");
             startActivity(Intent.createChooser(emailIntent, "Send email..."));;
 
          }

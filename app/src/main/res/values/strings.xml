@@ -68,7 +68,6 @@
     // Change password activity
 
     <string name="changepass">Change your password</string>
-    <string name="oldpassword">Type old password</string>
     <string name="newpassword">Type new password</string>
     <string name="confirmnewpassword">Type new password again</string>
     <string name="cnf">Confirm</string>

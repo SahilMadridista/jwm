@@ -24,7 +24,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 public class ChangePasswordActivity extends AppCompatActivity {
 
    androidx.appcompat.widget.Toolbar toolbar;
-   EditText OldPasswordEdittext,NewPasswordEdittext,ConfirmPasswordEdittext;
+   EditText NewPasswordEdittext,ConfirmPasswordEdittext;
    Button ConfirmButton;
    String UserID;
    String realpassword;
@@ -49,7 +49,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
       ChangePasssowrdProgressDialog.setCancelable(false);
       ChangePasssowrdProgressDialog.setMessage("Changing password...");
 
-      OldPasswordEdittext = findViewById(R.id.old_pass_et);
       NewPasswordEdittext = findViewById(R.id.new_pass_et);
       ConfirmPasswordEdittext = findViewById(R.id.confirm_new_pass_et);
 
@@ -87,7 +86,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
    private void passwordChange() {
 
-      final String oldpass = OldPasswordEdittext.getText().toString().trim();
       final String newpass = NewPasswordEdittext.getText().toString().trim();
       final String confirmnewpass = ConfirmPasswordEdittext.getText().toString().trim();
 
@@ -95,12 +93,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
       assert user!=null;
       UserID = firebaseAuth.getCurrentUser().getUid();
 
-
-      if(oldpass.isEmpty()){
-         OldPasswordEdittext.setError("This field can't be empty.");
-         OldPasswordEdittext.requestFocus();
-         return;
-      }
 
       if(newpass.isEmpty()){
          NewPasswordEdittext.setError("New password can't be empty.");
@@ -114,13 +106,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
          return;
       }
 
-      if(!oldpass.equals(realpassword)){
-
-         OldPasswordEdittext.setError("Please enter correct password");
-         OldPasswordEdittext.requestFocus();
-         return;
-
-      }
 
       if(!newpass.equals(confirmnewpass)){
 
