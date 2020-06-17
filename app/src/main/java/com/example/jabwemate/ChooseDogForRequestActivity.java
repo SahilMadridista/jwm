@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.jabwemate.ChooseDogAdapter.ChooseDogAdapter;
-import com.example.jabwemate.HomePadeAdapter.MyDogAdapter;
 import com.example.jabwemate.model.Dog;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
