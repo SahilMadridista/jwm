@@ -11,32 +11,30 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.jabwemate.PairDogDetailsActivity;
 import com.example.jabwemate.R;
-import com.example.jabwemate.RequestDetails;
 import com.example.jabwemate.model.Dog;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
-public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyDogViewHolder> {
+public class PairAdapter extends FirestoreRecyclerAdapter<Dog, PairAdapter.PairViewHolder> {
 
-   public MyDogAdapter(@NonNull FirestoreRecyclerOptions<Dog> options) {
+   private String IDD;
+
+   public PairAdapter(@NonNull FirestoreRecyclerOptions<Dog> options) {
       super(options);
    }
 
-   private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
-
-
    @Override
-   protected void onBindViewHolder(@NonNull final MyDogViewHolder holder,final int position, @NonNull final Dog model) {
+   protected void onBindViewHolder(@NonNull final PairViewHolder holder,final int position, @NonNull final Dog model) {
 
       holder.DogName.setText(model.getName());
       holder.DogBreed.setText(model.getBreed());
       holder.DogGender.setText(model.getGender());
-      if(model.getURL()!=null) {
+      if (model.getURL() != null) {
          Picasso
                  .get()
                  .load(Uri.parse(model.getURL()))
@@ -56,48 +54,50 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
 
                     }
                  });
+
+         holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+               DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+               String g=snapshot.getId();
+               Intent i=new Intent(view.getContext(), PairDogDetailsActivity.class);
+               i.putExtra("REF",g);
+               view.getContext().startActivity(i);
+
+            }
+
+         });
       }
 
-      holder.itemView.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
 
+   }
 
-            DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
-            String g=snapshot.getId();
-            Intent i=new Intent(view.getContext(), RequestDetails.class);
-            i.putExtra("REF",g);
-            view.getContext().startActivity(i);
-
-         }
-
-      });
-
+   public void getId(String id) {
+      IDD = id;
    }
 
    @NonNull
    @Override
-   public MyDogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+   public PairViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
       View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_dog_layout,
               parent, false);
-      return new MyDogViewHolder(v);
+      return new PairViewHolder(v);
    }
 
-   class MyDogViewHolder extends RecyclerView.ViewHolder{
+   class PairViewHolder extends RecyclerView.ViewHolder{
 
-      TextView DogName,DogBreed,DogGender;
+      TextView DogName, DogBreed, DogGender;
       ImageView DogImage;
 
-
-      public MyDogViewHolder(@NonNull View itemView) {
+      public PairViewHolder(@NonNull View itemView) {
          super(itemView);
 
          DogName = itemView.findViewById(R.id.dog_name_text);
          DogBreed = itemView.findViewById(R.id.dog_breed_text);
          DogGender = itemView.findViewById(R.id.dog_gender_text);
-         DogImage=itemView.findViewById(R.id.cardview_dog_image);
+         DogImage = itemView.findViewById(R.id.cardview_dog_image);
 
       }
    }
-
 }

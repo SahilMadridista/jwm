@@ -12,7 +12,6 @@ import android.os.Handler;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.jabwemate.HomePadeAdapter.HomeAdapter;
 import com.example.jabwemate.HomePadeAdapter.RequestAdaptar;
 import com.example.jabwemate.model.Dog;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;

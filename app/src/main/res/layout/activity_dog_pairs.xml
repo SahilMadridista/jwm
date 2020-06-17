@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".DogPairsActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/myDogLinearLayout"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:padding="10dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/pair_dog_image"
+            android:scaleType="centerCrop"
+            android:layout_weight="1"
+            android:src="@drawable/default_dog"
+            app:civ_border_width="1.5dp"
+            app:civ_border_color="@color/colorPrimaryDark">
+
+        </de.hdodenhof.circleimageview.CircleImageView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/pair_dogname"
+                android:text="Name"
+                android:gravity="center"
+                tools:ignore="NestedWeights">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Breed"
+                android:id="@+id/pair_dogbreed"
+                android:gravity="center"
+                tools:ignore="NestedWeights">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Age"
+                android:id="@+id/pair_dogage"
+                android:gravity="center"
+                tools:ignore="NestedWeights">
+
+            </TextView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Gender"
+                android:id="@+id/pair_doggender"
+                android:gravity="center"
+                tools:ignore="NestedWeights">
+
+            </TextView>
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_below="@id/myDogLinearLayout"
+        android:background="@color/colorPrimaryDark"
+        android:layout_marginTop="20dp"
+        android:id="@+id/view_part">
+
+    </View>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textSize="17sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimaryDark"
+        android:layout_marginTop="10dp"
+        android:id="@+id/pair_header"
+        android:layout_below="@id/view_part">
+
+    </TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:id="@+id/partner_recycler_view"
+        android:layout_below="@id/pair_header">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+</RelativeLayout>

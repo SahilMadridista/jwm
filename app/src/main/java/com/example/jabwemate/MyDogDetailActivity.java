@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -125,12 +124,9 @@ public class MyDogDetailActivity extends AppCompatActivity {
                }
             });
 
-
          }
       });
 
-
    }
-
 
 }

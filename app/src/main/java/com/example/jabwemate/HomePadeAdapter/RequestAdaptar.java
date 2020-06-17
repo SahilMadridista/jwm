@@ -12,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.jabwemate.R;
-import com.example.jabwemate.RequestDetails;
 import com.example.jabwemate.RequestRejectAccept;
 import com.example.jabwemate.model.Dog;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;

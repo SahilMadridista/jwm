@@ -120,6 +120,10 @@
 
     <string name="clickforreq">Showing the list of your dogs. Click to see the request details.</string>
 
+    //ShortList
+
+    <string name="shortlisthead">Showing your dogs here. Click on a dog to see it\'s pair</string>
+
 
     <string-array name="ageArray">
 

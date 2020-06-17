@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/dogdescriptionbg"
-    tools:context=".RequestRejectAccept">
+    tools:context=".PairDogDetailsActivity"
+    android:background="@drawable/dogdescriptionbg">
 
     <RelativeLayout
         android:id="@+id/relativeLayout2"
@@ -17,11 +16,11 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.289">
+        app:layout_constraintVertical_bias="0.299">
 
         <de.hdodenhof.circleimageview.CircleImageView
 
-            android:id="@+id/desc_dog_image_req"
+            android:id="@+id/pair_desc_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
@@ -38,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/relativeLayout2"
@@ -47,7 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_above="@id/linearLayout">
+            android:layout_above="@id/edit_button">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Name of Dog"
-                        android:id="@+id/detail_dog_req"
+                        android:id="@+id/pair_desc_dog_name"
                         android:textAlignment="center"
                         android:textColor="@color/black"
                         android:layout_centerInParent="true"
@@ -104,7 +104,7 @@
                         android:layout_height="wrap_content"
                         android:text="Age of Dog"
                         android:textColor="@color/black"
-                        android:id="@+id/detail_age_req"
+                        android:id="@+id/pair_desc_dog_age"
                         android:layout_centerInParent="true"
                         android:textSize="15sp">
 
@@ -126,15 +126,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/desc_text_bg"
-                    tools:ignore="NestedWeights">
+                    tools:ignore="NestedWeights"
+                    android:background="@drawable/desc_text_bg">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/dogbreedhead"
-                        android:textColor="@color/gray"
                         android:layout_margin="5dp"
+                        android:textColor="@color/gray"
                         android:layout_centerHorizontal="true">
 
                     </TextView>
@@ -144,7 +144,7 @@
                         android:layout_height="wrap_content"
                         android:text="Breed of Dog"
                         android:textColor="@color/black"
-                        android:id="@+id/detail_breed_req"
+                        android:id="@+id/pair_desc_dog_breed"
                         android:layout_centerInParent="true"
                         android:textSize="15sp">
 
@@ -162,8 +162,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/doggenderhead"
-                        android:textColor="@color/gray"
                         android:layout_margin="5dp"
+                        android:textColor="@color/gray"
                         android:layout_centerHorizontal="true">
 
                     </TextView>
@@ -172,7 +172,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Gender of Dog"
-                        android:id="@+id/detail_gender_req"
+                        android:id="@+id/pair_desc_dog_gender"
                         android:textColor="@color/black"
                         android:layout_centerInParent="true"
                         android:textSize="15sp">
@@ -191,47 +191,6 @@
                 android:orientation="horizontal">
 
                 <RelativeLayout
-
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@drawable/desc_text_bg"
-                    tools:ignore="NestedWeights">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ownernamehead"
-                        android:textColor="@color/gray"
-                        android:layout_margin="5dp"
-                        android:layout_centerHorizontal="true">
-
-                    </TextView>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Owner of Dog"
-                        android:textColor="@color/black"
-                        android:id="@+id/detail_owner_req"
-                        android:layout_centerInParent="true"
-                        android:textSize="15sp">
-
-                    </TextView>
-
-                </RelativeLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:baselineAligned="false"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
@@ -241,9 +200,106 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/ownercityhead"
-                        android:textColor="@color/gray"
+                        android:text="@string/ownernamehead"
                         android:layout_margin="5dp"
+                        android:textColor="@color/gray"
+                        android:layout_centerHorizontal="true">
+
+                    </TextView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Owner of Dog"
+                        android:textColor="@color/black"
+                        android:id="@+id/pair_desc_owner_name"
+                        android:layout_centerInParent="true"
+                        android:textSize="15sp">
+
+                    </TextView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/desc_text_bg">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/phone_icon_dark"
+                        android:layout_margin="5dp"
+                        android:id="@+id/call_user"
+                        android:layout_centerHorizontal="true">
+
+                    </ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Phone of Owner"
+                        android:textColor="@color/black"
+                        android:id="@+id/pair_desc_owner_phone"
+                        android:layout_centerInParent="true"
+                        android:textSize="15sp">
+
+                    </TextView>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:baselineAligned="false"
+                android:orientation="horizontal">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    tools:ignore="NestedWeights"
+                    android:background="@drawable/desc_text_bg">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/email_icon_dark"
+                        android:layout_margin="5dp"
+                        android:id="@+id/email_user"
+                        android:layout_centerHorizontal="true">
+
+                    </ImageView>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Email of owner"
+                        android:textColor="@color/black"
+                        android:id="@+id/pair_desc_owner_email"
+                        android:layout_centerInParent="true"
+                        android:textSize="12sp">
+
+                    </TextView>
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/desc_text_bg">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ownercityhead"
+                        android:layout_margin="5dp"
+                        android:textColor="@color/gray"
                         android:layout_centerHorizontal="true">
 
                     </TextView>
@@ -253,7 +309,7 @@
                         android:layout_height="wrap_content"
                         android:text="City of owner"
                         android:textColor="@color/black"
-                        android:id="@+id/detail_city_req"
+                        android:id="@+id/pair_desc_owner_city"
                         android:layout_centerInParent="true"
                         android:textSize="15sp">
 
@@ -265,40 +321,18 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <Button
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/edit_button"
             android:layout_alignParentBottom="true"
-            >
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/accept_req"
-                android:text="Accept"
-                android:textSize="18sp"
-                android:background="@color/colorPrimaryDark"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp">
-            </Button>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:id="@+id/reject_req"
-                android:text="Reject"
-                android:textSize="18sp"
-                android:background="@color/colorPrimaryDark"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp">
-            </Button>
+            android:text="@string/editdetails"
+            android:textColor="@color/white"
+            android:background="@color/colorPrimaryDark">
 
-        </LinearLayout>
-
+        </Button>
 
     </RelativeLayout>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

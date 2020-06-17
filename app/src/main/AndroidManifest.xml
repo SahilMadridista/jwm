@@ -2,11 +2,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jabwemate">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.CAMERA" />
-    <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/app_logo"
@@ -14,7 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RequestRejectAccept"></activity>
+        <activity android:name=".PairDogDetailsActivity"></activity>
+        <activity android:name=".DogPairsActivity" />
+        <activity android:name=".RequestRejectAccept" />
         <activity
             android:name=".RequestDetails"
             android:parentActivityName=".RequestActivity"
@@ -87,5 +84,11 @@
                 android:resource="@xml/file_paths" />
         </provider>
     </application>
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CALL_PHONE"> </uses-permission>
+
 
 </manifest>
