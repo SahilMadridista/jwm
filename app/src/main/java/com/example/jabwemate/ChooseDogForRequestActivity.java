@@ -43,6 +43,7 @@ public class ChooseDogForRequestActivity extends AppCompatActivity {
 
       Intent i=getIntent();
       senderId=i.getStringExtra("REG");
+
       firebaseAuth = FirebaseAuth.getInstance();
       firestore = FirebaseFirestore.getInstance();
       SendReqButton = findViewById(R.id.send_req_button);
@@ -57,7 +58,7 @@ public class ChooseDogForRequestActivity extends AppCompatActivity {
               .build();
 
       adapter = new ChooseDogAdapter(options);
-
+        adapter.getReceiverId(senderId);
       RecyclerView recyclerView = findViewById(R.id.choose_dog_recycler_view);
       recyclerView.setHasFixedSize(true);
       recyclerView.setLayoutManager(new LinearLayoutManager(this));
