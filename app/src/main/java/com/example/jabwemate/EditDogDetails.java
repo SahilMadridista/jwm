@@ -3,13 +3,21 @@ package com.example.jabwemate;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,8 +38,11 @@ import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -45,6 +56,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
     private Uri imageUri = null;
     private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
     private FirebaseStorage firebaseStorage;
+    private static final int CAMERA_PERM_CODE = 100;
     private static final int CAMERA_REQUEST = 1888;
     private String[] age = {"Age", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
     String Age = "", Url;
@@ -54,6 +66,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
     private FirebaseAuth firebaseAuth;
     private ProgressDialog progressDialog;
     private boolean flag = false;
+    String currentPhotoPath;
 
 
     @Override
@@ -82,8 +95,9 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                 flag = true;
-                Intent takePictureIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+               // Intent takePictureIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                //startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                askCameraPermissions();
             }
         });
 
@@ -107,6 +121,53 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
         });
 
 
+    }
+
+    private void askCameraPermissions() {
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+        }else {
+            dispatchTakePictureIntent();
+        }
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.jab_we_met",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        // File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
     }
 
     public String genderCheck() {
@@ -264,13 +325,27 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+       /* if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                 DogImage.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }*/
+
+        if (requestCode == CAMERA_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                File f = new File(currentPhotoPath);
+                DogImage.setImageURI(Uri.fromFile(f));
+                Log.d("tag", "Asolute Url of Image is " + Uri.fromFile(f));
+
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri contentUri =  Uri.fromFile(f);
+                mediaScanIntent.setData(contentUri);
+                this.sendBroadcast(mediaScanIntent);
+                imageUri=contentUri;
             }
         }
     }

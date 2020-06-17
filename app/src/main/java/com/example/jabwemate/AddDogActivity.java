@@ -77,6 +77,7 @@ String Age="",url;
     private RadioButton gendermale, genderfemale;
     private boolean male, female;
     private ProgressDialog progressDialog;
+    String currentPhotoPath;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,8 +121,9 @@ String Age="",url;
         AddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent takePictureIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+               // Intent takePictureIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+               // startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                askCameraPermissions();
             }
         });
 
@@ -146,6 +148,54 @@ String Age="",url;
         });
 
     }
+
+    private void askCameraPermissions() {
+        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+        }else {
+            dispatchTakePictureIntent();
+        }
+    }
+
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            // Create the File where the photo should go
+            File photoFile = null;
+            try {
+                photoFile = createImageFile();
+            } catch (IOException ex) {
+
+            }
+            // Continue only if the File was successfully created
+            if (photoFile != null) {
+                Uri photoURI = FileProvider.getUriForFile(this,
+                        "com.example.android.jab_we_met",
+                        photoFile);
+                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
+                startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+            }
+        }
+    }
+
+    private File createImageFile() throws IOException {
+        // Create an image file name
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        // File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        File image = File.createTempFile(
+                imageFileName,  /* prefix */
+                ".jpg",         /* suffix */
+                storageDir      /* directory */
+        );
+
+        // Save a file: path for use with ACTION_VIEW intents
+        currentPhotoPath = image.getAbsolutePath();
+        return image;
+    }
+
 
     public String genderCheck()
     {
@@ -173,15 +223,40 @@ String Age="",url;
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == CAMERA_PERM_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent();
+            } else {
+                Toast.makeText(this, "Camera Permission is Required to Use camera.", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+      /*  if (requestCode == CAMERA_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             imageUri = data.getData();
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), imageUri);
                 DogImage.setImageBitmap(bitmap);
             } catch (IOException e) {
                 e.printStackTrace();
+            }
+        }*/
+
+        if (requestCode == CAMERA_REQUEST) {
+            if (resultCode == Activity.RESULT_OK) {
+                File f = new File(currentPhotoPath);
+                DogImage.setImageURI(Uri.fromFile(f));
+                Log.d("tag", "Asolute Url of Image is " + Uri.fromFile(f));
+
+                Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+                Uri contentUri =  Uri.fromFile(f);
+                mediaScanIntent.setData(contentUri);
+                this.sendBroadcast(mediaScanIntent);
+                imageUri=contentUri;
             }
         }
     }
@@ -237,7 +312,6 @@ String Age="",url;
         dogs.put("URL",URL);
         dogs.put("city",city);
 
-        //TODO - convert breed to lowercase while storing
 
         dogs_db.collection("Dogs").document().set(dogs)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
