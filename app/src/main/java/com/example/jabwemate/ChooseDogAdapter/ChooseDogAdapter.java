@@ -69,13 +69,21 @@ public class ChooseDogAdapter extends FirestoreRecyclerAdapter<Dog, ChooseDogAda
                         }
                     });
         }
+        holder.radioButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                holder.radioButton.setChecked(false);
+            }
+        });
         holder.radioButton.setChecked(position == selectedPosition);
         holder.radioButton.setTag(position);
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(final View v) {
+            public void onClick(View v) {
                 DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
                 SenderID = snapshot.getId();
+                accept="";
+                pair="";
                 dogs_db.collection("Dogs").document(SenderID).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                     @Override
                     public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -84,11 +92,11 @@ public class ChooseDogAdapter extends FirestoreRecyclerAdapter<Dog, ChooseDogAda
                           accept = String.valueOf(documentSnapshot.get("Accept"));
                        if (documentSnapshot.get("Pair") != null)
                           pair = (String.valueOf(documentSnapshot.get("Pair")));
-
+                            View V=holder.itemView;
                         if (accept != null && accept.contains(ReceiverID)) {
-                            Toast.makeText(v.getContext(), "Already Accept Send", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(V.getContext(), "Already Accept Send", Toast.LENGTH_SHORT).show();
                         } else if (pair != null && pair.contains(ReceiverID)) {
-                            Toast.makeText(v.getContext(), "Already In Pair", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(V.getContext(), "Already In Pair", Toast.LENGTH_SHORT).show();
                         } else {
                            id=SenderID;
                             View view=holder.radioButton;
