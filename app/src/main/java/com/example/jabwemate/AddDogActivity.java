@@ -261,7 +261,7 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
             }
         }
     }
-    
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

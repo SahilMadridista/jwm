@@ -58,6 +58,8 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
     private FirebaseStorage firebaseStorage;
     private static final int CAMERA_PERM_CODE = 100;
     private static final int CAMERA_REQUEST = 1888;
+    private static final int READ_PERMISSION_REQUEST_CODE = 101;
+    private static final int WRITE_PERMISSION_REQUEST_CODE = 102;
     private String[] age = {"Age", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
     String Age = "", Url;
     private RadioButton gendermale, genderfemale;
@@ -97,7 +99,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
                 flag = true;
                // Intent takePictureIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 //startActivityForResult(takePictureIntent, CAMERA_REQUEST);
-                askCameraPermissions();
+                checkReadPermission();
             }
         });
 
@@ -121,6 +123,21 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
         });
 
 
+    }
+    private void checkReadPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_PERMISSION_REQUEST_CODE);
+        } else {
+            checkWritePermission();
+        }
+    }
+
+    private void checkWritePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST_CODE);
+        } else {
+            askCameraPermissions();
+        }
     }
 
     private void askCameraPermissions() {
@@ -350,5 +367,28 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == CAMERA_PERM_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent();
+            } else {
+                Toast.makeText(this, "Camera Permission is Required to Use camera.", Toast.LENGTH_SHORT).show();
+            }
+        } else if (requestCode == READ_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent();
+            } else {
+                Toast.makeText(this, "STORAGE permission is Required", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if (requestCode == WRITE_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent();
+            } else {
+                Toast.makeText(this, "Storage permission is Required", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 
 }
