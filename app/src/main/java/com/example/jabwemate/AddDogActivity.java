@@ -64,16 +64,18 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
     private androidx.appcompat.widget.Toolbar toolbar;
     private static final int CAMERA_REQUEST = 1888;
     private static final int CAMERA_PERM_CODE = 100;
+    private static final int READ_PERMISSION_REQUEST_CODE = 101;
+    private static final int WRITE_PERMISSION_REQUEST_CODE = 102;
     private String UserID;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
-    private String ownername, ownerphone,city;
+    private String ownername, ownerphone, city;
     private StorageReference reference;
     private Uri imageUri = null;
     private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
     private FirebaseStorage firebaseStorage;
-    private String[] age = {"Age", "1", "2", "3", "4", "5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20"};
-String Age="",url;
+    private String[] age = {"Age", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
+    String Age = "", url;
     private RadioButton gendermale, genderfemale;
     private boolean male, female;
     private ProgressDialog progressDialog;
@@ -85,9 +87,9 @@ String Age="",url;
         setContentView(R.layout.activity_add_dog);
 
         Intent intent = getIntent();
-        ownername =intent.getStringExtra("Owner Name");
-        ownerphone =intent.getStringExtra("Owner Phone");
-        city=intent.getStringExtra("City");
+        ownername = intent.getStringExtra("Owner Name");
+        ownerphone = intent.getStringExtra("Owner Phone");
+        city = intent.getStringExtra("City");
         firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
         reference = FirebaseStorage.getInstance().getReference("dogimages/");
@@ -113,7 +115,7 @@ String Age="",url;
         UserID = firebaseAuth.getCurrentUser().getUid();
         firebaseStorage = FirebaseStorage.getInstance();
 
-        ArrayAdapter<String> adapter= new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,age);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, age);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         AgeSpinner.setAdapter(adapter);
         AgeSpinner.setOnItemSelectedListener((AdapterView.OnItemSelectedListener) this);
@@ -121,9 +123,9 @@ String Age="",url;
         AddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               // Intent takePictureIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-               // startActivityForResult(takePictureIntent, CAMERA_REQUEST);
-                askCameraPermissions();
+                // Intent takePictureIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                // startActivityForResult(takePictureIntent, CAMERA_REQUEST);
+                checkReadPermission();
             }
         });
 
@@ -135,14 +137,13 @@ String Age="",url;
                     Toast.makeText(AddDogActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 } else if (genderCheck().isEmpty()) {
                     Toast.makeText(AddDogActivity.this, "Please select Gender", Toast.LENGTH_SHORT).show();
-                }else if (DogBreed.getText().toString().trim().isEmpty()) {
+                } else if (DogBreed.getText().toString().trim().isEmpty()) {
                     DogBreed.setError("Required!!");
                     Toast.makeText(AddDogActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-                }
-                else if (Age.isEmpty() || Age.compareTo("Age") == 0) {
+                } else if (Age.isEmpty() || Age.compareTo("Age") == 0) {
                     Toast.makeText(AddDogActivity.this, "Please select age", Toast.LENGTH_SHORT).show();
-                }else
-                addDogDetails();
+                } else
+                    addDogDetails();
 
             }
         });
@@ -150,9 +151,9 @@ String Age="",url;
     }
 
     private void askCameraPermissions() {
-        if(ContextCompat.checkSelfPermission(this,Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this,new String[] {Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
-        }else {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+        } else {
             dispatchTakePictureIntent();
         }
     }
@@ -196,16 +197,31 @@ String Age="",url;
         return image;
     }
 
+    private void checkReadPermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_PERMISSION_REQUEST_CODE);
+        } else {
+            checkWritePermission();
+        }
+    }
 
-    public String genderCheck()
-    {
-        String g="";
+    private void checkWritePermission() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST_CODE);
+        } else {
+            askCameraPermissions();
+        }
+    }
+
+
+    public String genderCheck() {
+        String g = "";
         male = gendermale.isChecked();
         female = genderfemale.isChecked();
-        if(male)
-            g="Male";
-        if(female)
-            g="Female";
+        if (male)
+            g = "Male";
+        if (female)
+            g = "Female";
 
         return g;
     }
@@ -213,8 +229,8 @@ String Age="",url;
 
     @Override
     public void onItemSelected(AdapterView<?> arg0, View arg1, int position, long id) {
-                Age = age[position];
-        }
+        Age = age[position];
+    }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
@@ -230,9 +246,22 @@ String Age="",url;
             } else {
                 Toast.makeText(this, "Camera Permission is Required to Use camera.", Toast.LENGTH_SHORT).show();
             }
+        } else if (requestCode == READ_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent();
+            } else {
+                Toast.makeText(this, "STORAGE permission is Required", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else if (requestCode == WRITE_PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                dispatchTakePictureIntent();
+            } else {
+                Toast.makeText(this, "Storage permission is Required", Toast.LENGTH_SHORT).show();
+            }
         }
     }
-
+    
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -253,10 +282,10 @@ String Age="",url;
                 Log.d("tag", "Asolute Url of Image is " + Uri.fromFile(f));
 
                 Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-                Uri contentUri =  Uri.fromFile(f);
+                Uri contentUri = Uri.fromFile(f);
                 mediaScanIntent.setData(contentUri);
                 this.sendBroadcast(mediaScanIntent);
-                imageUri=contentUri;
+                imageUri = contentUri;
             }
         }
     }
@@ -273,7 +302,7 @@ String Age="",url;
                         @Override
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
-                           setUrl();
+                            setUrl();
                             Toast.makeText(AddDogActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -286,10 +315,8 @@ String Age="",url;
                 }
             });
 
-        }
-        else
+        } else
             Toast.makeText(getApplicationContext(), "Select Image", Toast.LENGTH_SHORT).show();
-
 
 
     }
@@ -298,19 +325,19 @@ String Age="",url;
 
         String dogName = DogName.getText().toString().trim();
         String dogBreed = DogBreed.getText().toString().trim();
-        String dogGender =genderCheck();
+        String dogGender = genderCheck();
 
         Map<String, Object> dogs = new LinkedHashMap<>();
 
         dogs.put("Name", dogName);
         dogs.put("Breed", dogBreed);
         dogs.put("Gender", dogGender);
-        dogs.put("Age",Age);
-        dogs.put("name",ownername);
-        dogs.put("phone",ownerphone);
-        dogs.put("UID",UserID);
-        dogs.put("URL",URL);
-        dogs.put("city",city);
+        dogs.put("Age", Age);
+        dogs.put("name", ownername);
+        dogs.put("phone", ownerphone);
+        dogs.put("UID", UserID);
+        dogs.put("URL", URL);
+        dogs.put("city", city);
 
 
         dogs_db.collection("Dogs").document().set(dogs)
@@ -321,7 +348,7 @@ String Age="",url;
 
                         progressDialog.dismiss();
                         Toast.makeText(AddDogActivity.this, "Dog details added", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(AddDogActivity.this,myDog.class));
+                        startActivity(new Intent(AddDogActivity.this, myDog.class));
                         finish();
                     }
                 })
@@ -333,6 +360,7 @@ String Age="",url;
                     }
                 });
     }
+
     public void setUrl() {
         StorageReference storageReference = firebaseStorage.getReference();
         storageReference.child("dogimages/").child(UserID).child(DogName.getText().toString().trim()).child("image").getDownloadUrl()
@@ -341,10 +369,10 @@ String Age="",url;
                     @Override
                     public void onSuccess(Uri uri) {
                         url = uri.toString();
-                   dataUpdate(url);
+                        dataUpdate(url);
 
                     }
                 });
-       }
+    }
 
 }
