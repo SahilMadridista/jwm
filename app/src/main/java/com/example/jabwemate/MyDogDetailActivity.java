@@ -60,12 +60,6 @@ public class MyDogDetailActivity extends AppCompatActivity {
          }
       });*/
 
-      SeeAllPhotos.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-            startActivity(new Intent(MyDogDetailActivity.this,SeeAllPhotosActivity.class));
-         }
-      });
 
       setView();
    }
@@ -141,6 +135,16 @@ public class MyDogDetailActivity extends AppCompatActivity {
                  finish();
                }
             });
+
+             SeeAllPhotos.setOnClickListener(new View.OnClickListener() {
+                 @Override
+                 public void onClick(View view) {
+                     Intent i=new Intent(MyDogDetailActivity.this,SeeAllPhotosActivity.class);
+                     i.putExtra("URL list",URL_list);
+                     startActivity(i);
+                     finish();
+                 }
+             });
 
          }
       });

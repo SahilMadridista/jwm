@@ -162,7 +162,6 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
                     Intent i=new Intent(AddDogActivity.this,AddMorePhotosActivity.class);
                     i.putExtra("dogname",DogName.getText().toString().trim());
                     i.putExtra("URL List",ImageList);
-                    startActivity(i);
                     startActivityForResult(i,SECOND_ACTIVITY_REQUEST_CODE);
                 }
                 else{

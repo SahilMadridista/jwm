@@ -21,9 +21,11 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.jabwemate.HomePadeAdapter.GridAdaptar;
 import com.google.android.gms.common.internal.Constants;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -79,15 +81,19 @@ public class AddMorePhotosActivity extends AppCompatActivity {
       progressDialog.setCancelable(false);
 
       DogName = getIntent().getExtras().getString("dogname");
-      ImageList2= (ArrayList<String>) getIntent().getSerializableExtra("URl List");
-      //System.out.println("image is..........."+ImageList2);
-
+      ImageList2= getIntent().getStringArrayListExtra("URL List");
+      if(ImageList2!=null)
+          ImageList=ImageList2;
 
       UserID = firebaseAuth.getCurrentUser().getUid();
       firebaseStorage = FirebaseStorage.getInstance();
       AddImageButton=findViewById(R.id.add_image_btn);
       SaveButton=findViewById(R.id.save_image_button);
-
+        if(ImageList!=null) {
+            GridAdaptar gridAdaptar = new GridAdaptar(this, ImageList);
+            GridView gridView=findViewById(R.id.add_image_gridview);
+            gridView.setAdapter(gridAdaptar);
+        }
       AddImageButton.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
@@ -272,6 +278,11 @@ public class AddMorePhotosActivity extends AppCompatActivity {
 
    private void dataUpdate(String url) {
       ImageList.add(url);
+       GridAdaptar gridAdaptar = new GridAdaptar(this, ImageList);
+       GridView gridView=findViewById(R.id.add_image_gridview);
+       gridView.setAdapter(gridAdaptar);
+       gridAdaptar.notifyDataSetChanged();
+
 
    }
 
