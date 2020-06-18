@@ -51,7 +51,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
     private Spinner AgeSpinner;
     private ImageView DogImage;
     private EditText DogName, DogBreed;
-    private Button AddPhoto, Save;
+    private Button AddPhoto, Save,AddMoreButton;
     private StorageReference reference;
     private Uri imageUri = null;
     private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
@@ -91,6 +91,14 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Uploading data...");
+
+        AddMoreButton = findViewById(R.id.edit_dog_add_more_image_button);
+        AddMoreButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(EditDogDetails.this,SeeAllPhotosActivity.class));
+            }
+        });
 
         setDefault();
         AddPhoto.setOnClickListener(new View.OnClickListener() {

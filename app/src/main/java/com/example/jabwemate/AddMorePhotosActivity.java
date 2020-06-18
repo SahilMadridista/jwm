@@ -62,9 +62,6 @@ public class AddMorePhotosActivity extends AppCompatActivity {
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
-      requestWindowFeature(Window.FEATURE_NO_TITLE);
-      getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-              WindowManager.LayoutParams.FLAG_FULLSCREEN);
       setContentView(R.layout.activity_add_more_photos);
 
       time = System.currentTimeMillis();
@@ -82,23 +79,6 @@ public class AddMorePhotosActivity extends AppCompatActivity {
 
       UserID = firebaseAuth.getCurrentUser().getUid();
 
-      AddImageButton = findViewById(R.id.add_more_button);
-      UploadImageButton = findViewById(R.id.add_more_upload_button);
-      AddImage = findViewById(R.id.add_more_image);
-
-      AddImageButton.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-            dispatchTakePictureIntent();
-         }
-      });
-
-      UploadImageButton.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-            uploadImage();
-         }
-      });
 
    }
 
@@ -216,7 +196,6 @@ public class AddMorePhotosActivity extends AppCompatActivity {
                  public void onSuccess(Uri uri) {
                     url = uri.toString();
                     //dataUpdate(url);
-
                  }
               });
    }

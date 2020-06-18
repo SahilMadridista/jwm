@@ -60,7 +60,7 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
     private Spinner AgeSpinner;
     private ImageView DogImage;
     private EditText DogName, DogBreed;
-    private Button AddPhoto, AddDetails;
+    private Button AddPhoto, AddDetails,AddMorePhotos;
     private androidx.appcompat.widget.Toolbar toolbar;
     private static final int CAMERA_REQUEST = 1888;
     private static final int CAMERA_PERM_CODE = 100;
@@ -102,10 +102,18 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
         genderfemale = findViewById(R.id.su_female);
         AddPhoto = findViewById(R.id.add_photo_button);
         AddDetails = findViewById(R.id.add_details_button);
+        AddMorePhotos = findViewById(R.id.add_more_image_button);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Uploading data...");
+
+        AddMorePhotos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(AddDogActivity.this,SeeAllPhotosActivity.class));
+            }
+        });
 
 
         toolbar = findViewById(R.id.add_dog_toolbar);

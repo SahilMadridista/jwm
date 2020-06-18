@@ -342,17 +342,13 @@
 
             </Button>
 
-            <Button
-                android:id="@+id/add_more_images_button"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="Add more photos"
-                android:textAllCaps="false"
-                android:background="@color/white"
-                android:textSize="13sp">
+            <View
+                android:layout_width="1dp"
+                android:layout_height="48dp"
+                android:background="@color/white">
 
-            </Button>
+            </View>
+
 
             <Button
                 android:layout_width="match_parent"

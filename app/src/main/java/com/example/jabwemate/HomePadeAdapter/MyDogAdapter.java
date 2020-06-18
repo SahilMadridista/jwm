@@ -1,5 +1,8 @@
 package com.example.jabwemate.HomePadeAdapter;
 
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.LayoutInflater;
@@ -7,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,14 +18,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.jabwemate.R;
 import com.example.jabwemate.RequestDetails;
 import com.example.jabwemate.model.Dog;
+import com.example.jabwemate.myDog;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyDogViewHolder> {
+
+   private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
    public MyDogAdapter(@NonNull FirestoreRecyclerOptions<Dog> options) {
       super(options);
@@ -58,14 +67,40 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
                  });
       }
 
+      holder.Delete.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+
+            DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
+            final String ID = snapshot.getId();
+
+
+            firestore.collection("Dogs").document(ID).delete()
+                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                       @Override
+                       public void onSuccess(Void aVoid) {
+
+                          //Toast.makeText(myDog.getBaseContext(),"Deleted successfully",Toast.LENGTH_LONG).show();
+
+
+                       }
+                    }).addOnFailureListener(new OnFailureListener() {
+               @Override
+               public void onFailure(@NonNull Exception e) {
+                  //Toast.makeText(myDog.getBaseContext(),"Deleted successfully",Toast.LENGTH_LONG).show();
+
+               }
+            });
+         }
+      });
+
       holder.itemView.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View view) {
 
-
             DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
             String g=snapshot.getId();
-            Intent i=new Intent(view.getContext(), RequestDetails.class);
+            Intent i=new Intent(view.getContext(),RequestDetails.class);
             i.putExtra("REF",g);
             view.getContext().startActivity(i);
 
@@ -73,12 +108,16 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
 
       });
 
+
+
    }
+
+
 
    @NonNull
    @Override
    public MyDogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-      View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_dog_layout,
+      View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_dog_layout_user,
               parent, false);
       return new MyDogViewHolder(v);
    }
@@ -87,6 +126,7 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
 
       TextView DogName,DogBreed,DogGender;
       ImageView DogImage;
+      ImageView Delete;
 
 
       public MyDogViewHolder(@NonNull View itemView) {
@@ -96,6 +136,7 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
          DogBreed = itemView.findViewById(R.id.dog_breed_text);
          DogGender = itemView.findViewById(R.id.dog_gender_text);
          DogImage=itemView.findViewById(R.id.cardview_dog_image);
+         Delete = itemView.findViewById(R.id.delete_icon);
 
       }
    }

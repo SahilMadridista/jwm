@@ -219,7 +219,7 @@ public class HomePage extends AppCompatActivity {
                 finish();
 
                 firebaseAuth.signOut();
-                startActivity(new Intent(getApplicationContext(),SignUpActivity.class));
+                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
                 finish();
 
 
