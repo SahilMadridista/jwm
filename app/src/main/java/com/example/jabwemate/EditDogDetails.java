@@ -97,7 +97,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
             @Override
             public void onClick(View v) {
                 flag = true;
-               // Intent takePictureIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                // Intent takePictureIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 //startActivityForResult(takePictureIntent, CAMERA_REQUEST);
                 checkReadPermission();
             }
@@ -257,7 +257,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
 
             if (imageUri != null) {
 
-               progressDialog.show();
+                progressDialog.show();
                 StorageReference fileref = reference.child(UserID).child(DogName.getText().toString().trim()).child("image");
 
                 fileref.putFile(imageUri)
@@ -319,7 +319,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                       progressDialog.dismiss();
+                        progressDialog.dismiss();
                         Toast.makeText(EditDogDetails.this, "Error!#!", Toast.LENGTH_SHORT).show();
                     }
                 });
