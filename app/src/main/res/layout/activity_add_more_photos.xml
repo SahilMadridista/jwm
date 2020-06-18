@@ -22,9 +22,9 @@
         android:layout_below="@id/grid_toolbar"
         android:layout_above="@id/btn_layout"
         android:stretchMode="columnWidth"
-        android:numColumns="3"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp">
+        android:numColumns="2"
+        android:horizontalSpacing="20dp"
+        android:verticalSpacing="20dp">
 
     </GridView>
 

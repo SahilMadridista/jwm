@@ -42,7 +42,7 @@ import java.util.Date;
 
 public class AddMorePhotosActivity extends AppCompatActivity {
 
-   Button AddImageButton,UploadImageButton;
+ private   Button AddImageButton, SaveButton;
    ImageView AddImage;
    String currentPhotoPath;
    private FirebaseAuth firebaseAuth;
@@ -57,14 +57,18 @@ public class AddMorePhotosActivity extends AppCompatActivity {
    String url;
    String DogName;
    long time;
-   private ArrayList<Uri> ImageList = new ArrayList<Uri>();
+   private static final int READ_PERMISSION_REQUEST_CODE = 101;
+   private static final int WRITE_PERMISSION_REQUEST_CODE = 102;
+   private ArrayList<String> ImageList = new ArrayList<String>();
+   private ArrayList<String> ImageList2 ;
+
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
       super.onCreate(savedInstanceState);
       setContentView(R.layout.activity_add_more_photos);
 
-      time = System.currentTimeMillis();
+
 
       firebaseAuth = FirebaseAuth.getInstance();
       firestore = FirebaseFirestore.getInstance();
@@ -75,13 +79,56 @@ public class AddMorePhotosActivity extends AppCompatActivity {
       progressDialog.setCancelable(false);
 
       DogName = getIntent().getExtras().getString("dogname");
-      Toast.makeText(getApplicationContext(),DogName,Toast.LENGTH_LONG).show();
+      ImageList2= (ArrayList<String>) getIntent().getSerializableExtra("URl List");
+      //System.out.println("image is..........."+ImageList2);
+
 
       UserID = firebaseAuth.getCurrentUser().getUid();
+      firebaseStorage = FirebaseStorage.getInstance();
+      AddImageButton=findViewById(R.id.add_image_btn);
+      SaveButton=findViewById(R.id.save_image_button);
 
-
+      AddImageButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            time = System.currentTimeMillis();
+            checkReadPermission();
+         }
+      });
+      SaveButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View v) {
+            Intent intent=new Intent();
+            intent.putExtra("URL list", ImageList);
+            setResult(RESULT_OK, intent);
+            finish();
+         }
+      });
    }
 
+   private void checkReadPermission() {
+      if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, READ_PERMISSION_REQUEST_CODE);
+      } else {
+         checkWritePermission();
+      }
+   }
+
+   private void checkWritePermission() {
+      if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, WRITE_PERMISSION_REQUEST_CODE);
+      } else {
+         askCameraPermissions();
+      }
+   }
+
+   private void askCameraPermissions() {
+      if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+         ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, CAMERA_PERM_CODE);
+      } else {
+         dispatchTakePictureIntent();
+      }
+   }
 
    private void dispatchTakePictureIntent() {
       Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -122,6 +169,29 @@ public class AddMorePhotosActivity extends AppCompatActivity {
       return image;
    }
 
+   @Override
+   public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+      if (requestCode == CAMERA_PERM_CODE) {
+         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            dispatchTakePictureIntent();
+         } else {
+            Toast.makeText(this, "Camera Permission is Required to Use camera.", Toast.LENGTH_SHORT).show();
+         }
+      } else if (requestCode == READ_PERMISSION_REQUEST_CODE) {
+         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            dispatchTakePictureIntent();
+         } else {
+            Toast.makeText(this, "STORAGE permission is Required", Toast.LENGTH_SHORT).show();
+         }
+      }
+      else if (requestCode == WRITE_PERMISSION_REQUEST_CODE) {
+         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            dispatchTakePictureIntent();
+         } else {
+            Toast.makeText(this, "Storage permission is Required", Toast.LENGTH_SHORT).show();
+         }
+      }
+   }
 
    @Override
    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -139,7 +209,7 @@ public class AddMorePhotosActivity extends AppCompatActivity {
       if (requestCode == CAMERA_REQUEST) {
          if (resultCode == Activity.RESULT_OK) {
             File f = new File(currentPhotoPath);
-            AddImage.setImageURI(Uri.fromFile(f));
+          //  AddImage.setImageURI(Uri.fromFile(f));
             Log.d("tag", "Asolute Url of Image is " + Uri.fromFile(f));
 
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -147,13 +217,12 @@ public class AddMorePhotosActivity extends AppCompatActivity {
             mediaScanIntent.setData(contentUri);
             this.sendBroadcast(mediaScanIntent);
             imageUri = contentUri;
+            uploadImage();
          }
       }
    }
 
    private void uploadImage() {
-
-
       if (imageUri != null) {
 
          progressDialog.show();
@@ -166,8 +235,9 @@ public class AddMorePhotosActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                        Toast.makeText(AddMorePhotosActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
-
+                        setUrl();
                        progressDialog.dismiss();
+
 
                     }
                  }).addOnFailureListener(new OnFailureListener() {
@@ -176,7 +246,6 @@ public class AddMorePhotosActivity extends AppCompatActivity {
 
                Toast.makeText(AddMorePhotosActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
                progressDialog.dismiss();
-
             }
          });
 
@@ -195,24 +264,15 @@ public class AddMorePhotosActivity extends AppCompatActivity {
                  @Override
                  public void onSuccess(Uri uri) {
                     url = uri.toString();
-                    //dataUpdate(url);
+                    dataUpdate(url);
                  }
               });
+
    }
 
    private void dataUpdate(String url) {
-
-      firestore.collection("Dogs").document().update("URL list", FieldValue.arrayUnion(url))
-              .addOnSuccessListener(new OnSuccessListener<Void>() {
-                 @Override
-                 public void onSuccess(Void aVoid) {
-
-                    Toast.makeText(getApplicationContext(),"Photo uploaded and URL stored",Toast.LENGTH_LONG).show();
-
-                 }
-              });
+      ImageList.add(url);
 
    }
-
 
 }

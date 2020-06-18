@@ -19,7 +19,7 @@ public class MyDogDetailActivity extends AppCompatActivity {
 
    private Button EditDetails,SeeAllPhotos;
    private TextView Owner, Dog, Breed, Age, City, Gender,Email,Phone;
-   private String owner, dog, breed, age, city, gender, ID, URL,email,phone,ownerid;
+   private String owner, dog, breed, age, city, gender, ID, URL,email,phone,ownerid,URL_list;
    private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
    private ImageView image;
    FirebaseFirestore firestore;
@@ -97,6 +97,7 @@ public class MyDogDetailActivity extends AppCompatActivity {
             gender = String.valueOf(documentSnapshot.getString("Gender"));
             URL = String.valueOf(documentSnapshot.getString("URL"));
             ownerid = String.valueOf(documentSnapshot.getString("UID"));
+            URL_list=String.valueOf(documentSnapshot.get("URL List"));
 
             if (URL != null) {
                Picasso
@@ -135,6 +136,7 @@ public class MyDogDetailActivity extends AppCompatActivity {
                  i.putExtra("Gender",gender);
                  i.putExtra("Url",URL);
                  i.putExtra("REG",ID);
+                 i.putExtra("URL list",URL_list);
                  startActivity(i);
                  finish();
                }

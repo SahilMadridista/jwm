@@ -42,8 +42,11 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class EditDogDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
@@ -60,6 +63,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
     private static final int CAMERA_REQUEST = 1888;
     private static final int READ_PERMISSION_REQUEST_CODE = 101;
     private static final int WRITE_PERMISSION_REQUEST_CODE = 102;
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 1010;
     private String[] age = {"Age", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20"};
     String Age = "", Url;
     private RadioButton gendermale, genderfemale;
@@ -69,6 +73,8 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
     private ProgressDialog progressDialog;
     private boolean flag = false;
     String currentPhotoPath;
+    private ArrayList<String> ImageList;
+    String ImageLit;
 
 
     @Override
@@ -87,20 +93,36 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
         gender = i.getStringExtra("Gender");
         url = i.getStringExtra("Url");
         ID=i.getStringExtra("REG");
+        ImageLit=i.getStringExtra("URL list");
+        ImageLit=ImageLit.substring(1, ImageLit.length()-1);
+        ImageList = new ArrayList<String>(Arrays.asList(ImageLit.split(",")));
+
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Uploading data...");
 
+        setDefault();
+
         AddMoreButton = findViewById(R.id.edit_dog_add_more_image_button);
         AddMoreButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(EditDogDetails.this,SeeAllPhotosActivity.class));
+            public void onClick(View v) {
+                if(!DogName.getText().toString().trim().isEmpty()){
+                    Intent i=new Intent(EditDogDetails.this,AddMorePhotosActivity.class);
+                    i.putExtra("dogname",DogName.getText().toString().trim());
+                    i.putExtra("URL List",ImageList);
+                    startActivity(i);
+                }
+                else{
+                    DogName.setError("Required!!");
+                    Toast.makeText(EditDogDetails.this, "Please fill dog name", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        setDefault();
+
+
         AddPhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -309,6 +331,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
         dogs.put("Gender", dogGender);
         dogs.put("Age", Age);
         dogs.put("URL", URL);
+        dogs.put("URL List",ImageList);
 
         dogs_db.collection("Dogs").document(ID).update(dogs)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -371,6 +394,14 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
                 mediaScanIntent.setData(contentUri);
                 this.sendBroadcast(mediaScanIntent);
                 imageUri=contentUri;
+            }
+        }
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                // Get String data from Intent
+                ImageList= data.getStringArrayListExtra("URL list");
+
+
             }
         }
     }

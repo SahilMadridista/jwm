@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -49,7 +50,9 @@ import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -66,6 +69,7 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
     private static final int CAMERA_PERM_CODE = 100;
     private static final int READ_PERMISSION_REQUEST_CODE = 101;
     private static final int WRITE_PERMISSION_REQUEST_CODE = 102;
+    private static final int SECOND_ACTIVITY_REQUEST_CODE = 1010;
     private String UserID;
     private FirebaseAuth firebaseAuth;
     private FirebaseFirestore firestore;
@@ -80,6 +84,8 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
     private boolean male, female;
     private ProgressDialog progressDialog;
     String currentPhotoPath;
+    private ArrayList<String> ImageList = new ArrayList<String>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,12 +114,6 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Uploading data...");
 
-        AddMorePhotos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AddDogActivity.this,SeeAllPhotosActivity.class));
-            }
-        });
 
 
         toolbar = findViewById(R.id.add_dog_toolbar);
@@ -153,6 +153,22 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
                 } else
                     addDogDetails();
 
+            }
+        });
+        AddMorePhotos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!DogName.getText().toString().trim().isEmpty()){
+                    Intent i=new Intent(AddDogActivity.this,AddMorePhotosActivity.class);
+                    i.putExtra("dogname",DogName.getText().toString().trim());
+                    i.putExtra("URL List",ImageList);
+                    startActivity(i);
+                    startActivityForResult(i,SECOND_ACTIVITY_REQUEST_CODE);
+                }
+                else{
+                    DogName.setError("Required!!");
+                    Toast.makeText(AddDogActivity.this, "Please fill dog name", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -287,6 +303,14 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
                 imageUri = contentUri;
             }
         }
+        if (requestCode == SECOND_ACTIVITY_REQUEST_CODE) {
+            if (resultCode == RESULT_OK) {
+                // Get String data from Intent
+                ImageList= data.getStringArrayListExtra("URL list");
+
+
+            }
+        }
     }
 
     private void addDogDetails() {
@@ -337,6 +361,7 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
         dogs.put("UID", UserID);
         dogs.put("URL", URL);
         dogs.put("city", city);
+        dogs.put("URL List",ImageList);
 
 
         dogs_db.collection("Dogs").document().set(dogs)

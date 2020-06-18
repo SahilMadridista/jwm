@@ -23,9 +23,9 @@
         android:layout_below="@id/see_photos_grid_toolbar"
         android:layout_alignParentBottom="true"
         android:stretchMode="columnWidth"
-        android:numColumns="3"
-        android:horizontalSpacing="10dp"
-        android:verticalSpacing="10dp">
+        android:numColumns="2"
+        android:horizontalSpacing="20dp"
+        android:verticalSpacing="20dp">
 
     </GridView>
 
