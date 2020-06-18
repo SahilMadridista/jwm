@@ -17,7 +17,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.squareup.picasso.Picasso;
 public class MyDogDetailActivity extends AppCompatActivity {
 
-   private Button EditDetails;
+   private Button EditDetails,AddMorePhotosButton,SeeAllPhotos;
    private TextView Owner, Dog, Breed, Age, City, Gender,Email,Phone;
    private String owner, dog, breed, age, city, gender, ID, URL,email,phone,ownerid;
    private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
@@ -37,6 +37,8 @@ public class MyDogDetailActivity extends AppCompatActivity {
       City = findViewById(R.id.detail_owner_city);
       Gender = findViewById(R.id.detail_dog_gender);
       EditDetails = findViewById(R.id.edit_button);
+      AddMorePhotosButton = findViewById(R.id.add_more_images_button);
+      SeeAllPhotos = findViewById(R.id.see_all_photos);
       image = findViewById(R.id.detail_dog_image);
       Email = findViewById(R.id.detail_owner_email);
       Phone = findViewById(R.id.detail_owner_phone);
@@ -50,6 +52,22 @@ public class MyDogDetailActivity extends AppCompatActivity {
       Intent i = getIntent();
       ID = i.getStringExtra("REF");
 
+      AddMorePhotosButton.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+            Intent intent = new Intent(MyDogDetailActivity.this,AddMorePhotosActivity.class);
+            intent.putExtra("dogname",dog);
+            startActivity(intent);
+
+         }
+      });
+
+      SeeAllPhotos.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+            startActivity(new Intent(MyDogDetailActivity.this,SeeAllPhotosActivity.class));
+         }
+      });
 
       setView();
    }

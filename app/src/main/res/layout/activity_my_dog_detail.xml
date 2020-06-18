@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:layout_above="@id/edit_button">
+            android:layout_above="@id/edit_button_layout">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -322,17 +322,51 @@
 
         </LinearLayout>
 
-        <Button
+        <LinearLayout
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/edit_button"
-            android:layout_alignParentBottom="true"
-            android:text="@string/editdetails"
-            android:textColor="@color/white"
-            android:background="@color/colorPrimaryDark">
+            android:layout_height="48dp"
+            android:id="@+id/edit_button_layout"
+            android:orientation="horizontal"
+            android:layout_alignParentBottom="true">
 
-        </Button>
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="@string/editdetails"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:id="@+id/edit_button"
+                android:background="@color/colorPrimaryDark">
+
+            </Button>
+
+            <Button
+                android:id="@+id/add_more_images_button"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Add more photos"
+                android:textAllCaps="false"
+                android:background="@color/white"
+                android:textSize="13sp">
+
+            </Button>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:id="@+id/see_all_photos"
+                android:textColor="@color/white"
+                android:text="See photos"
+                android:textAllCaps="false"
+                android:background="@color/colorPrimaryDark">
+
+            </Button>
+
+        </LinearLayout>
 
     </RelativeLayout>
 
