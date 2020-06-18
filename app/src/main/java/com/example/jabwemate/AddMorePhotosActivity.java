@@ -57,6 +57,7 @@ public class AddMorePhotosActivity extends AppCompatActivity {
    String url;
    String DogName;
    long time;
+   private ArrayList<Uri> ImageList = new ArrayList<Uri>();
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
