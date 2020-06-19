@@ -17,7 +17,7 @@
 
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/cardview_dog_image"
+            android:id="@+id/user_cardview_dog_image"
             android:scaleType="centerCrop"
             android:src="@drawable/default_dog"
             app:civ_border_width="2dp"
@@ -58,7 +58,7 @@
                 android:textSize="17sp"
                 android:layout_centerInParent="true"
                 android:textColor="@color/colorPrimaryDark"
-                android:id="@+id/dog_name_text"
+                android:id="@+id/user_dog_name_text"
                 android:fontFamily="@font/bold"
                 android:textAlignment="center">
 
@@ -92,7 +92,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="15sp"
                 android:layout_centerInParent="true"
-                android:id="@+id/dog_breed_text"
+                android:id="@+id/user_dog_breed_text"
                 android:fontFamily="@font/bold"
                 android:textAlignment="center">
 
@@ -124,7 +124,7 @@
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="17sp"
                 android:layout_centerInParent="true"
-                android:id="@+id/dog_gender_text"
+                android:id="@+id/user_dog_gender_text"
                 android:fontFamily="@font/bold"
                 android:textAlignment="center">
 
@@ -137,7 +137,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="5dp"
-                android:id="@+id/delete_icon"
+                android:id="@+id/user_dog_delete_icon"
                 android:layout_marginBottom="5dp">
 
             </ImageView>

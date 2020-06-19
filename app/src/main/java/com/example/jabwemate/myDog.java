@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.jabwemate.HomePadeAdapter.HomeAdapter;
 import com.example.jabwemate.HomePadeAdapter.MyDogAdapter;
+import com.example.jabwemate.HomePadeAdapter.MyDogDetailsAdapter;
 import com.example.jabwemate.model.Dog;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -34,7 +35,7 @@ public class myDog extends AppCompatActivity {
     private String UserID;
     private String ownername, ownerphone,city;
     androidx.appcompat.widget.Toolbar toolbar;
-    private HomeAdapter adapter;
+    private MyDogDetailsAdapter adapter;
     private CollectionReference collectionReference = firestore.collection("Dogs");
 
     @Override
@@ -62,7 +63,7 @@ public class myDog extends AppCompatActivity {
                 .setQuery(query, Dog.class)
                 .build();
 
-        adapter = new HomeAdapter(options);
+        adapter = new MyDogDetailsAdapter(options);
 
         RecyclerView recyclerView = findViewById(R.id.your_dogs_recycler_view);
         recyclerView.setHasFixedSize(true);

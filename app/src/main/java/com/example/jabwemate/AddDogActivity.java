@@ -92,12 +92,9 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_dog);
 
-        Intent intent = getIntent();
-        ownername = intent.getStringExtra("Owner Name");
-        ownerphone = intent.getStringExtra("Owner Phone");
-        city = intent.getStringExtra("City");
-        firebaseAuth = FirebaseAuth.getInstance();
         firestore = FirebaseFirestore.getInstance();
+
+        firebaseAuth = FirebaseAuth.getInstance();
         reference = FirebaseStorage.getInstance().getReference("dogimages/");
 
         AgeSpinner = findViewById(R.id.age_spinner);
@@ -122,6 +119,16 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
 
         UserID = firebaseAuth.getCurrentUser().getUid();
         firebaseStorage = FirebaseStorage.getInstance();
+
+        firestore.collection("Users").document(firebaseAuth.getCurrentUser().getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                ownername = documentSnapshot.getString("username");
+                ownerphone = documentSnapshot.getString("phone");
+
+            }
+        });
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, age);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -325,7 +332,7 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
                         public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                             setUrl();
-                            Toast.makeText(AddDogActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
+                            //Toast.makeText(AddDogActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                 @Override

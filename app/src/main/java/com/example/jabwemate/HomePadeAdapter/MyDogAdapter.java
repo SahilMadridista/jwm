@@ -69,46 +69,6 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
                  });
       }
 
-      holder.Delete.setOnClickListener(new View.OnClickListener() {
-         @Override
-         public void onClick(View view) {
-
-            DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
-            final String ID = snapshot.getId();
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(context);
-
-            builder.setMessage("Do you really want to delete this dog ?").setCancelable(false)
-                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                       @Override
-                       public void onClick(final DialogInterface dialogInterface, int i) {
-
-                          firestore.collection("Dogs").document(ID).delete()
-                                  .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                     @Override
-                                     public void onSuccess(Void aVoid) {
-                                        dialogInterface.cancel();
-                                     }
-                                  }).addOnFailureListener(new OnFailureListener() {
-                             @Override
-                             public void onFailure(@NonNull Exception e) {
-                                dialogInterface.cancel();
-                             }
-                          });
-
-                       }
-                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-               @Override
-               public void onClick(DialogInterface dialogInterface, int i) {
-                  dialogInterface.cancel();
-               }
-            });
-
-            AlertDialog alert = builder.create();
-            alert.show();
-
-         }
-      });
 
       holder.itemView.setOnClickListener(new View.OnClickListener() {
          @Override
@@ -124,16 +84,12 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
 
       });
 
-
-
    }
-
-
 
    @NonNull
    @Override
    public MyDogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-      View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_dog_layout_user,
+      View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_dog_layout,
               parent, false);
       context = parent.getContext();
       return new MyDogViewHolder(v);
@@ -143,7 +99,6 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
 
       TextView DogName,DogBreed,DogGender;
       ImageView DogImage;
-      ImageView Delete;
 
 
       public MyDogViewHolder(@NonNull View itemView) {
@@ -153,7 +108,6 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
          DogBreed = itemView.findViewById(R.id.dog_breed_text);
          DogGender = itemView.findViewById(R.id.dog_gender_text);
          DogImage=itemView.findViewById(R.id.cardview_dog_image);
-         Delete = itemView.findViewById(R.id.delete_icon);
 
       }
    }
