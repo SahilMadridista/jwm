@@ -58,7 +58,6 @@ public class ShortlistAdapter extends FirestoreRecyclerAdapter<Dog, ShortlistAda
          @Override
          public void onClick(View view) {
 
-
             DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
             String g=snapshot.getId();
             Intent i=new Intent(view.getContext(), DogPairsActivity.class);

@@ -51,17 +51,17 @@ public class GridAdaptar extends ArrayAdapter<String> {
 */
         convertView = inflter.inflate(R.layout.gridcard, null); // inflate the layout
         ImageView icon = (ImageView) convertView.findViewById(R.id.grid_card_image); // get the reference of ImageView
-       // icon.setImageResource(logos[i]); // set logo images
+        // icon.setImageResource(logos[i]); // set logo images
         //return view;
 
         //ImageView dogImageView = (ImageView) listItemView.findViewById(R.id.grid_card_image);
 
-            Picasso
-                    .get()
-                    .load(Uri.parse(arrayList.get(position)))
-                    .fit()
-                    .centerCrop()
-                    .into(icon);
+        Picasso
+                .get()
+                .load(Uri.parse(arrayList.get(position)))
+                .fit()
+                .centerCrop()
+                .into(icon);
 
 
 

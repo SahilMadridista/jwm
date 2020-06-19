@@ -31,7 +31,6 @@ public class RequestAdaptar extends FirestoreRecyclerAdapter<Dog, RequestAdaptar
 
     private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
 
-
     @Override
     protected void onBindViewHolder(@NonNull final RequestViewHolder holder, final int position, @NonNull final Dog model) {
 

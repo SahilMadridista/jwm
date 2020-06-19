@@ -18,12 +18,15 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.example.jabwemate.HomePadeAdapter.HomeAdapter;
 import com.example.jabwemate.consts.SharedPrefConsts;
 import com.example.jabwemate.model.Dog;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
@@ -41,6 +44,7 @@ public class HomePage extends AppCompatActivity {
     EditText SearchBreed;
     TextView Showing,Remove;
     ProgressDialog progressDialog;
+    String owner,ownerphone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +56,6 @@ public class HomePage extends AppCompatActivity {
         radioGroup = findViewById(R.id.radioGroup);
         SearchBreed = findViewById(R.id.breed_filter);
         SearchButton = findViewById(R.id.filter_button);
-
 
         Showing = findViewById(R.id.showtext);
         Remove = findViewById(R.id.filter_remove);

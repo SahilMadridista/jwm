@@ -82,6 +82,7 @@ public class AddMorePhotosActivity extends AppCompatActivity {
 
       DogName = getIntent().getExtras().getString("dogname");
       ImageList2= getIntent().getStringArrayListExtra("URL List");
+
       if(ImageList2!=null)
           ImageList=ImageList2;
 
@@ -89,6 +90,7 @@ public class AddMorePhotosActivity extends AppCompatActivity {
       firebaseStorage = FirebaseStorage.getInstance();
       AddImageButton=findViewById(R.id.add_image_btn);
       SaveButton=findViewById(R.id.save_image_button);
+
         if(ImageList!=null) {
             GridAdaptar gridAdaptar = new GridAdaptar(this, ImageList);
             GridView gridView=findViewById(R.id.add_image_gridview);
