@@ -34,7 +34,7 @@ public class myDog extends AppCompatActivity {
     private String UserID;
     private String ownername, ownerphone,city;
     androidx.appcompat.widget.Toolbar toolbar;
-    private HomeAdapter adapter;
+    private MyDogAdapter adapter;
     private CollectionReference collectionReference = firestore.collection("Dogs");
 
     @Override
@@ -62,7 +62,7 @@ public class myDog extends AppCompatActivity {
                 .setQuery(query, Dog.class)
                 .build();
 
-        adapter = new HomeAdapter(options);
+        adapter = new MyDogAdapter(options);
 
         RecyclerView recyclerView = findViewById(R.id.your_dogs_recycler_view);
         recyclerView.setHasFixedSize(true);

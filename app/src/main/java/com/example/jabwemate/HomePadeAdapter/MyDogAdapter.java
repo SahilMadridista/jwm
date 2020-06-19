@@ -30,6 +30,8 @@ import com.squareup.picasso.Picasso;
 
 public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyDogViewHolder> {
 
+   private Context context;
+   myDog myDog;
    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
 
    public MyDogAdapter(@NonNull FirestoreRecyclerOptions<Dog> options) {
@@ -74,23 +76,37 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
             DocumentSnapshot snapshot = getSnapshots().getSnapshot(holder.getAdapterPosition());
             final String ID = snapshot.getId();
 
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
 
-            firestore.collection("Dogs").document(ID).delete()
-                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+            builder.setMessage("Do you really want to delete this dog ?").setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                        @Override
-                       public void onSuccess(Void aVoid) {
+                       public void onClick(final DialogInterface dialogInterface, int i) {
 
-                          //Toast.makeText(myDog.getBaseContext(),"Deleted successfully",Toast.LENGTH_LONG).show();
-
+                          firestore.collection("Dogs").document(ID).delete()
+                                  .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                     @Override
+                                     public void onSuccess(Void aVoid) {
+                                        dialogInterface.cancel();
+                                     }
+                                  }).addOnFailureListener(new OnFailureListener() {
+                             @Override
+                             public void onFailure(@NonNull Exception e) {
+                                dialogInterface.cancel();
+                             }
+                          });
 
                        }
-                    }).addOnFailureListener(new OnFailureListener() {
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
                @Override
-               public void onFailure(@NonNull Exception e) {
-                  //Toast.makeText(myDog.getBaseContext(),"Deleted successfully",Toast.LENGTH_LONG).show();
-
+               public void onClick(DialogInterface dialogInterface, int i) {
+                  dialogInterface.cancel();
                }
             });
+
+            AlertDialog alert = builder.create();
+            alert.show();
+
          }
       });
 
@@ -119,6 +135,7 @@ public class MyDogAdapter extends FirestoreRecyclerAdapter<Dog, MyDogAdapter.MyD
    public MyDogViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
       View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.single_dog_layout_user,
               parent, false);
+      context = parent.getContext();
       return new MyDogViewHolder(v);
    }
 
