@@ -31,6 +31,7 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -74,6 +75,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
     private boolean flag = false;
     String currentPhotoPath;
     private ArrayList<String> ImageList;
+    private ArrayList<String> RemoveList;
     String ImageLit;
 
 
@@ -398,10 +400,24 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
             if (resultCode == RESULT_OK) {
                 // Get String data from Intent
                 ImageList= data.getStringArrayListExtra("URL list");
+                RemoveList=data.getStringArrayListExtra("Remove List");
+                if(RemoveList!=null) {
 
-
+                    for (int i=0;i<RemoveList.size();i++)
+                        removeArrayElement(RemoveList.get(i));
+                }
             }
         }
+    }
+
+    private void removeArrayElement(String X) {
+        dogs_db.collection("Dogs").document(ID).update("Accept", FieldValue.arrayRemove(X))
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.v("Remove photo","Remove Photo successfully");
+                    }
+                });
     }
 
     @Override

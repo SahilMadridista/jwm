@@ -22,9 +22,9 @@ import com.squareup.picasso.Picasso;
 
 public class RequestRejectAccept extends AppCompatActivity {
 
-    private Button Accept,Reject;
+    private Button Accept,Reject,SeeAllPhotos;
     private TextView Owner, Dog, Breed, Age, City, Gender;
-    private String owner, dog, breed, age, city, gender, ID, URL,IDD;
+    private String owner, dog, breed, age, city, gender, ID, URL,IDD,URL_list;
     private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
     private ImageView image;
     ProgressDialog progressDialog;
@@ -43,6 +43,7 @@ public class RequestRejectAccept extends AppCompatActivity {
         Gender = findViewById(R.id.detail_gender_req);
         Accept = findViewById(R.id.accept_req);
         Reject = findViewById(R.id.reject_req);
+        SeeAllPhotos = findViewById(R.id.see_all_photos_request);
         image = findViewById(R.id.desc_dog_image_req);
 
         progressDialog = new ProgressDialog(this);
@@ -134,6 +135,7 @@ public class RequestRejectAccept extends AppCompatActivity {
                 city = String.valueOf(documentSnapshot.getString("city"));
                 gender = String.valueOf(documentSnapshot.getString("Gender"));
                 URL = String.valueOf(documentSnapshot.getString("URL"));
+                URL_list=String.valueOf(documentSnapshot.get("URL List"));
                 if (URL != null) {
                     Picasso
                             .get()
@@ -150,6 +152,15 @@ public class RequestRejectAccept extends AppCompatActivity {
                 City.setText(city);
                 Gender.setText(gender);
 
+                SeeAllPhotos.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i=new Intent(RequestRejectAccept.this,SeeAllPhotosActivity.class);
+                        i.putExtra("URL list",URL_list);
+                        startActivity(i);
+
+                    }
+                });
             }
         });
 

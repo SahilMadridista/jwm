@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,13 +24,14 @@ import com.squareup.picasso.Picasso;
 
 public class PairDogDetailsActivity extends AppCompatActivity {
 
-   String URL, ID, ownerid;
+   String URL, ID, ownerid,URL_list;
    private FirebaseFirestore firestore = FirebaseFirestore.getInstance();
    private FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
    TextView DogName, Age, Breed, Gender, OwnerName, Phone, Email, City;
    ImageView DogImage, CallUser, EmailUser;
    ProgressDialog progressDialog;
    private static final int REQUEST_PHONE_CALL = 1;
+   private Button SeeAllPhotos;
 
    @Override
    protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,7 @@ public class PairDogDetailsActivity extends AppCompatActivity {
       City = findViewById(R.id.pair_desc_owner_city);
       CallUser = findViewById(R.id.call_user);
       EmailUser = findViewById(R.id.email_user);
+      SeeAllPhotos = findViewById(R.id.see_all_photos_pair);
 
       progressDialog = new ProgressDialog(this);
       progressDialog.setTitle("Loading");
@@ -82,7 +85,7 @@ public class PairDogDetailsActivity extends AppCompatActivity {
                     City.setText(String.valueOf(documentSnapshot.getString("city")));
                     URL = String.valueOf(documentSnapshot.getString("URL"));
                     ownerid = String.valueOf(documentSnapshot.getString("UID"));
-
+                    URL_list=String.valueOf(documentSnapshot.get("URL List"));
                     if (URL != null) {
                        Picasso
                                .get()
@@ -102,6 +105,16 @@ public class PairDogDetailsActivity extends AppCompatActivity {
 
                                }
                             });
+
+                    SeeAllPhotos.setOnClickListener(new View.OnClickListener() {
+                       @Override
+                       public void onClick(View view) {
+                          Intent i=new Intent(PairDogDetailsActivity.this,SeeAllPhotosActivity.class);
+                          i.putExtra("URL list",URL_list);
+                          startActivity(i);
+
+                       }
+                    });
 
                  }
               });

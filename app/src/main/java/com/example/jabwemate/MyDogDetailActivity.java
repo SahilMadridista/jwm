@@ -142,7 +142,7 @@ public class MyDogDetailActivity extends AppCompatActivity {
                      Intent i=new Intent(MyDogDetailActivity.this,SeeAllPhotosActivity.class);
                      i.putExtra("URL list",URL_list);
                      startActivity(i);
-                     finish();
+
                  }
              });
 

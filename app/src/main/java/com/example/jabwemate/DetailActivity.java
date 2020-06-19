@@ -20,9 +20,9 @@ import com.squareup.picasso.Picasso;
 
 public class DetailActivity extends AppCompatActivity {
 
-    private Button MakeRequest;
+    private Button MakeRequest,SeeAllPhotos;
     private TextView Owner, Dog, Breed, Age, City, Gender;
-    private String owner, dog, breed, age, city, gender, ID, URL;
+    private String owner, dog, breed, age, city, gender, ID, URL,URL_list;
     private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
     private ImageView image;
     ProgressDialog progressDialog;
@@ -39,6 +39,7 @@ public class DetailActivity extends AppCompatActivity {
         City = findViewById(R.id.detail_city);
         Gender = findViewById(R.id.detail_gender);
         MakeRequest = findViewById(R.id.detail_make_req);
+        SeeAllPhotos = findViewById(R.id.see_all_photos_details);
         image = findViewById(R.id.desc_dog_image);
 
         progressDialog = new ProgressDialog(this);
@@ -86,6 +87,7 @@ public class DetailActivity extends AppCompatActivity {
                 city = String.valueOf(documentSnapshot.getString("city"));
                 gender = String.valueOf(documentSnapshot.getString("Gender"));
                 URL = String.valueOf(documentSnapshot.getString("URL"));
+                URL_list=String.valueOf(documentSnapshot.get("URL List"));
                 if (URL != null) {
                     Picasso
                             .get()
@@ -101,6 +103,16 @@ public class DetailActivity extends AppCompatActivity {
                 Age.setText(age);
                 City.setText(city);
                 Gender.setText(gender);
+
+                SeeAllPhotos.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent i=new Intent(DetailActivity.this,SeeAllPhotosActivity.class);
+                        i.putExtra("URL list",URL_list);
+                        startActivity(i);
+
+                    }
+                });
 
             }
         });

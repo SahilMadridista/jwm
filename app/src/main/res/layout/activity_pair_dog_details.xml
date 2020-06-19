@@ -321,6 +321,18 @@
 
         </LinearLayout>
 
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/see_all_photos_pair"
+            android:textColor="@color/white"
+            android:text="See photos"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorPrimaryDark">
+
+        </Button>
 
     </RelativeLayout>
 
