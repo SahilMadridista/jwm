@@ -95,9 +95,9 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
         ID=i.getStringExtra("REG");
         ImageLit=i.getStringExtra("URL list");
         ImageLit=ImageLit.substring(1, ImageLit.length()-1);
-        ImageList = new ArrayList<String>(Arrays.asList(ImageLit.split(",")));
-
-
+        System.out.println("Image is........................"+ImageLit);
+        ImageList = new ArrayList<String>(Arrays.asList(ImageLit.split(", ")));
+        System.out.println("Image list is........................"+ImageList);
         progressDialog = new ProgressDialog(this);
         progressDialog.setCancelable(false);
         progressDialog.setMessage("Uploading data...");

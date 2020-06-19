@@ -3,12 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_marginStart="18dp"
+    android:background="@color/light_blue">
 
     <ImageView
         android:layout_width="150dp"
         android:layout_height="200dp"
-        android:layout_margin="8dp"
+        android:layout_margin="14dp"
         android:src="@color/colorPrimaryDark"
         android:id="@+id/grid_card_image">
 
