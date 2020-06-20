@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
    android:padding="22dp"
     android:background="#fff">
+
+
     <ImageView
         android:id="@+id/selectedImage_display"
         android:layout_width="match_parent"

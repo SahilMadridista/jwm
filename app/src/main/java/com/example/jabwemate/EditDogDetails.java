@@ -111,6 +111,7 @@ public class EditDogDetails extends AppCompatActivity implements AdapterView.OnI
                 if(!DogName.getText().toString().trim().isEmpty()){
                     Intent i=new Intent(EditDogDetails.this,AddMorePhotosActivity.class);
                     i.putExtra("dogname",DogName.getText().toString().trim());
+                    i.putExtra("docID",ID);
                     i.putExtra("URL List",ImageList);
                     startActivityForResult(i,SECOND_ACTIVITY_REQUEST_CODE);
                 }

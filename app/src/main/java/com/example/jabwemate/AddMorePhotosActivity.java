@@ -47,7 +47,7 @@ import java.util.Date;
 
 public class AddMorePhotosActivity extends AppCompatActivity {
 
- private   Button AddImageButton, SaveButton;
+   private   Button AddImageButton, SaveButton;
    ImageView AddImage;
    String currentPhotoPath;
    private FirebaseAuth firebaseAuth;
@@ -65,7 +65,7 @@ public class AddMorePhotosActivity extends AppCompatActivity {
    private static final int READ_PERMISSION_REQUEST_CODE = 101;
    private static final int WRITE_PERMISSION_REQUEST_CODE = 102;
    private ArrayList<String> ImageList = new ArrayList<String>();
-    private ArrayList<String> RemoveList = new ArrayList<String>();
+   private ArrayList<String> RemoveList = new ArrayList<String>();
    private ArrayList<String> ImageList2 ;
 
 
@@ -88,46 +88,46 @@ public class AddMorePhotosActivity extends AppCompatActivity {
       ImageList2= getIntent().getStringArrayListExtra("URL List");
 
       if(ImageList2!=null)
-          ImageList=ImageList2;
+         ImageList=ImageList2;
 
       UserID = firebaseAuth.getCurrentUser().getUid();
       firebaseStorage = FirebaseStorage.getInstance();
       AddImageButton=findViewById(R.id.add_image_btn);
       SaveButton=findViewById(R.id.save_image_button);
 
-        if(ImageList!=null && !ImageList.contains("")) {
-            final GridAdaptar gridAdaptar = new GridAdaptar(this, ImageList);
-            GridView gridView=findViewById(R.id.add_image_gridview);
-            gridView.setAdapter(gridAdaptar);
-            gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                @Override
-                public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(AddMorePhotosActivity.this);
+      if(ImageList!=null && !ImageList.contains("")) {
+         final GridAdaptar gridAdaptar = new GridAdaptar(this, ImageList);
+         GridView gridView=findViewById(R.id.add_image_gridview);
+         gridView.setAdapter(gridAdaptar);
+         gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+               AlertDialog.Builder builder = new AlertDialog.Builder(AddMorePhotosActivity.this);
 
-                    builder.setMessage("Do you really want to delete this image ?").setCancelable(false)
-                            .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(final DialogInterface dialogInterface, int i) {
+               builder.setMessage("Do you really want to delete this image ?").setCancelable(false)
+                       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                          @Override
+                          public void onClick(final DialogInterface dialogInterface, int i) {
 
-                                    RemoveList.add(ImageList.get(position));
-                                    ImageList.remove(position);
-                                    dialogInterface.cancel();
-                                    gridAdaptar.notifyDataSetChanged();
-                                }
-                            }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.cancel();
-                        }
-                    });
+                             RemoveList.add(ImageList.get(position));
+                             ImageList.remove(position);
+                             dialogInterface.cancel();
+                             gridAdaptar.notifyDataSetChanged();
+                          }
+                       }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+                  @Override
+                  public void onClick(DialogInterface dialogInterface, int i) {
+                     dialogInterface.cancel();
+                  }
+               });
 
-                    AlertDialog alert = builder.create();
-                    alert.show();
+               AlertDialog alert = builder.create();
+               alert.show();
 
-                    return false;
-                }
-            });
-        }
+               return false;
+            }
+         });
+      }
       AddImageButton.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
@@ -250,7 +250,7 @@ public class AddMorePhotosActivity extends AppCompatActivity {
       if (requestCode == CAMERA_REQUEST) {
          if (resultCode == Activity.RESULT_OK) {
             File f = new File(currentPhotoPath);
-          //  AddImage.setImageURI(Uri.fromFile(f));
+            //  AddImage.setImageURI(Uri.fromFile(f));
             Log.d("tag", "Asolute Url of Image is " + Uri.fromFile(f));
 
             Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -276,7 +276,7 @@ public class AddMorePhotosActivity extends AppCompatActivity {
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
 
                        Toast.makeText(AddMorePhotosActivity.this, "Upload successful", Toast.LENGTH_LONG).show();
-                        setUrl();
+                       setUrl();
                        progressDialog.dismiss();
 
 
@@ -313,37 +313,37 @@ public class AddMorePhotosActivity extends AppCompatActivity {
 
    private void dataUpdate(final String url) {
       ImageList.add(url);
-       final GridAdaptar gridAdaptar = new GridAdaptar(this, ImageList);
-       GridView gridView=findViewById(R.id.add_image_gridview);
-       gridView.setAdapter(gridAdaptar);
-       gridAdaptar.notifyDataSetChanged();
-       gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-           @Override
-           public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
-               AlertDialog.Builder builder = new AlertDialog.Builder(AddMorePhotosActivity.this);
+      final GridAdaptar gridAdaptar = new GridAdaptar(this, ImageList);
+      GridView gridView=findViewById(R.id.add_image_gridview);
+      gridView.setAdapter(gridAdaptar);
+      gridAdaptar.notifyDataSetChanged();
+      gridView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+         @Override
+         public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(AddMorePhotosActivity.this);
 
-               builder.setMessage("Do you really want to delete this image ?").setCancelable(false)
-                       .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                           @Override
-                           public void onClick(final DialogInterface dialogInterface, int i) {
-                               RemoveList.add(ImageList.get(position));
-                                ImageList.remove(position);
-                               dialogInterface.cancel();
-                               gridAdaptar.notifyDataSetChanged();
-                           }
-                       }).setNegativeButton("No", new DialogInterface.OnClickListener() {
-                   @Override
-                   public void onClick(DialogInterface dialogInterface, int i) {
-                       dialogInterface.cancel();
-                   }
-               });
+            builder.setMessage("Do you really want to delete this image ?").setCancelable(false)
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                       @Override
+                       public void onClick(final DialogInterface dialogInterface, int i) {
+                          RemoveList.add(ImageList.get(position));
+                          ImageList.remove(position);
+                          dialogInterface.cancel();
+                          gridAdaptar.notifyDataSetChanged();
+                       }
+                    }).setNegativeButton("No", new DialogInterface.OnClickListener() {
+               @Override
+               public void onClick(DialogInterface dialogInterface, int i) {
+                  dialogInterface.cancel();
+               }
+            });
 
-               AlertDialog alert = builder.create();
-               alert.show();
+            AlertDialog alert = builder.create();
+            alert.show();
 
-               return false;
-           }
-       });
+            return false;
+         }
+      });
 
 
    }

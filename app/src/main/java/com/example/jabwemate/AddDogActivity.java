@@ -126,6 +126,8 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 ownername = documentSnapshot.getString("username");
                 ownerphone = documentSnapshot.getString("phone");
+                city = documentSnapshot.getString("city");
+
 
             }
         });

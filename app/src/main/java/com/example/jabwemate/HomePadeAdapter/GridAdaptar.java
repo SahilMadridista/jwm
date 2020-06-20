@@ -51,7 +51,7 @@ public class GridAdaptar extends ArrayAdapter<String> {
 */
         convertView = inflter.inflate(R.layout.gridcard, null); // inflate the layout
         ImageView icon = (ImageView) convertView.findViewById(R.id.grid_card_image); // get the reference of ImageView
-        if(!arrayList.get(position).isEmpty()) {
+        if(!arrayList.get(position+1).isEmpty()) {
             Picasso
                     .get()
                     .load(Uri.parse(arrayList.get(position)))

@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.squareup.picasso.Callback;
+import com.squareup.picasso.Picasso;
 
 public class MyDogDetailsAdapter extends FirestoreRecyclerAdapter<Dog, MyDogDetailsAdapter.MyDogDetailsViewHolder> {
 
@@ -41,6 +44,28 @@ public class MyDogDetailsAdapter extends FirestoreRecyclerAdapter<Dog, MyDogDeta
       holder.DogName.setText(model.getName());
       holder.DogBreed.setText(model.getBreed());
       holder.DogGender.setText(model.getGender());
+
+      if(model.getURL()!=null) {
+         Picasso
+                 .get()
+                 .load(Uri.parse(model.getURL()))
+                 .fetch(new Callback() {
+                    @Override
+                    public void onSuccess() {
+                       Picasso
+                               .get()
+                               .load(Uri.parse(model.getURL()))
+                               .fit()
+                               .centerCrop()
+                               .into(holder.DogImage);
+                    }
+
+                    @Override
+                    public void onError(Exception e) {
+
+                    }
+                 });
+      }
 
       holder.Delete.setOnClickListener(new View.OnClickListener() {
          @Override

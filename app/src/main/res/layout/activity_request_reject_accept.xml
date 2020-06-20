@@ -265,53 +265,73 @@
             </LinearLayout>
 
         </LinearLayout>
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/see_all_photos_request"
-            android:textColor="@color/white"
-            android:text="See photos"
-            android:textSize="20sp"
-            android:textAllCaps="false"
-            android:layout_above="@id/linearLayout"
-            android:background="@color/colorPrimaryDark">
-
-        </Button>
-
 
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            >
+            android:orientation="horizontal"
+            android:background="@color/colorPrimaryDark"
+            android:layout_alignParentBottom="true">
+
             <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
                 android:layout_weight="1"
-                android:id="@+id/accept_req"
-                android:text="Accept"
-                android:textSize="18sp"
-                android:background="@color/colorPrimaryDark"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp">
-            </Button>
-            <Button
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:textAllCaps="false"
                 android:id="@+id/reject_req"
                 android:text="Reject"
                 android:textSize="18sp"
-                android:background="@color/colorPrimaryDark"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp">
+                android:background="@color/colorPrimaryDark">
+            </Button>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="50dp"
+                android:background="@color/white">
+
+            </View>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/see_all_photos_request"
+                android:textColor="@color/white"
+                android:text="See photos"
+                android:layout_weight="1"
+                android:textSize="20sp"
+                android:textAllCaps="false"
+                android:layout_above="@id/linearLayout"
+                android:background="@color/colorPrimaryDark">
+
+            </Button>
+
+            <View
+                android:layout_width="1dp"
+                android:layout_height="50dp"
+                android:background="@color/white">
+
+            </View>
+
+            <Button
+
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:textColor="@color/white"
+                android:id="@+id/accept_req"
+                android:textAllCaps="false"
+                android:text="Accept"
+                android:textSize="18sp"
+                android:background="@color/colorPrimaryDark">
+
             </Button>
 
         </LinearLayout>
 
-
     </RelativeLayout>
+
 
 
 

@@ -60,6 +60,24 @@ public class MyDogDetailActivity extends AppCompatActivity {
          }
       });*/
 
+      /*EditDetails.setOnClickListener(new View.OnClickListener() {
+         @Override
+         public void onClick(View view) {
+            Intent i = new Intent(getApplicationContext(),EditDogDetails.class);
+
+            i.putExtra("Name",dog);
+            i.putExtra("Breed",breed);
+            i.putExtra("Age",age);
+            i.putExtra("Gender",gender);
+            i.putExtra("Url",URL);
+            i.putExtra("REG",ID);
+            i.putExtra("URL list",URL_list);
+            startActivity(i);
+            finish();
+
+         }
+      });*/
+
 
       setView();
    }
