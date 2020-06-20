@@ -12,6 +12,12 @@
     </item>
 
     <item
+        android:id="@+id/buysell"
+        android:title="Buy / Sell dogs">
+
+    </item>
+
+    <item
         android:id="@+id/requests"
         android:title="@string/requests">
     </item>
