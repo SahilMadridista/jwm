@@ -150,7 +150,7 @@ public class HomePage extends AppCompatActivity {
         userID = firebaseAuth.getCurrentUser().getUid();
 
         Query query = collectionReference
-                .whereEqualTo("Breed",breedname)
+                .whereEqualTo("BreedLowerCase",breedname)
                 .whereEqualTo("Gender",gender);
         FirestoreRecyclerOptions<Dog> options = new FirestoreRecyclerOptions.Builder<Dog>()
                 .setQuery(query, Dog.class)
