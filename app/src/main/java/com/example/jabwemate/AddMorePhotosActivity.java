@@ -95,6 +95,10 @@ public class AddMorePhotosActivity extends AppCompatActivity {
       AddImageButton=findViewById(R.id.add_image_btn);
       SaveButton=findViewById(R.id.save_image_button);
 
+       if(ImageList.contains("")){
+           ImageList.clear();
+       }
+
       if(ImageList!=null && !ImageList.contains("")) {
          final GridAdaptar gridAdaptar = new GridAdaptar(this, ImageList);
          GridView gridView=findViewById(R.id.add_image_gridview);
@@ -128,6 +132,7 @@ public class AddMorePhotosActivity extends AppCompatActivity {
             }
          });
       }
+
       AddImageButton.setOnClickListener(new View.OnClickListener() {
          @Override
          public void onClick(View v) {
