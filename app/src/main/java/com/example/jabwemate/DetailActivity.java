@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -99,9 +100,21 @@ public class DetailActivity extends AppCompatActivity {
         switch (item.getItemId()) {
 
             case R.id.report_item:
+            {
+                String S="I found this user inappropriate and fake. \nThis user is not valid and is a dummy account causing malpractice and disturbance.\n\n UserID is... ";
+                S=S.concat(ID+"\n\nThanks User");
 
-                Toast.makeText(getApplicationContext(),"Report button clicked",Toast.LENGTH_LONG)
-                        .show();
+                Intent intent = new Intent(Intent.ACTION_SENDTO);
+                intent.setData(Uri.parse("mailto:"));
+                intent.putExtra(Intent.EXTRA_TEXT,S);
+                intent.putExtra(android.content.Intent.EXTRA_EMAIL,new String[] { "fartmagazine81@gmail.com" });
+                intent.putExtra(Intent.EXTRA_SUBJECT, "REPORT");
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+
+
 
             default:
                 return super.onOptionsItemSelected(item);
