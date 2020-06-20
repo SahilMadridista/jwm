@@ -34,7 +34,6 @@ public class SeeAllPhotosActivity extends AppCompatActivity {
       ImageList = new ArrayList<String>(Arrays.asList(ImageLit.split(", ")));
 
 
-
       if(ImageList!=null && !ImageList.contains("")) {
          GridAdaptar gridAdaptar = new GridAdaptar(this, ImageList);
          GridView gridView=findViewById(R.id.add_image_gridview);
