@@ -78,7 +78,7 @@ public class YourInformationActivity extends AppCompatActivity {
         if(task.isSuccessful()){
           DocumentSnapshot documentSnapshot = task.getResult();
           assert documentSnapshot != null;
-          NameText.setText(documentSnapshot.getString("name"));
+          NameText.setText(documentSnapshot.getString("username"));
           EmailText.setText(documentSnapshot.getString("email"));
           PhoneText.setText(documentSnapshot.getString("phone"));
 

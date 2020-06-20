@@ -283,7 +283,7 @@
                 android:id="@+id/reject_req"
                 android:text="Reject"
                 android:textSize="18sp"
-                android:background="@color/colorPrimaryDark">
+                android:background="@color/red">
             </Button>
 
             <View
@@ -324,7 +324,7 @@
                 android:textAllCaps="false"
                 android:text="Accept"
                 android:textSize="18sp"
-                android:background="@color/colorPrimaryDark">
+                android:background="@color/green">
 
             </Button>
 

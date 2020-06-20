@@ -120,6 +120,18 @@ public class HomePage extends AppCompatActivity {
 
     private void loadFilterData() {
 
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
+
+        String breedname = SearchBreed.getText().toString().toLowerCase().trim();
+        String gender = radioButton.getText().toString().trim();
+
+        if(breedname.isEmpty()){
+            SearchBreed.setError("Please enter breed");
+            SearchBreed.requestFocus();
+            return;
+        }
+
         progressDialog.show();
 
         Runnable progressRunnable = new Runnable() {
@@ -132,18 +144,6 @@ public class HomePage extends AppCompatActivity {
 
         Handler pdCanceller = new Handler();
         pdCanceller.postDelayed(progressRunnable, 1000);
-
-        int radioId = radioGroup.getCheckedRadioButtonId();
-        radioButton = findViewById(radioId);
-
-        String breedname = SearchBreed.getText().toString().trim();
-        String gender = radioButton.getText().toString().trim();
-
-        if(breedname.isEmpty()){
-            SearchBreed.setError("Please enter breed");
-            SearchBreed.requestFocus();
-            return;
-        }
 
         assert firebaseAuth.getCurrentUser() != null;
 

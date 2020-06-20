@@ -361,7 +361,7 @@ public class AddDogActivity extends AppCompatActivity implements AdapterView.OnI
         Map<String, Object> dogs = new LinkedHashMap<>();
 
         dogs.put("Name", dogName);
-        dogs.put("Breed", dogBreed);
+        dogs.put("Breed", dogBreed.toLowerCase());
         dogs.put("Gender", dogGender);
         dogs.put("Age", Age);
         dogs.put("name", ownername);

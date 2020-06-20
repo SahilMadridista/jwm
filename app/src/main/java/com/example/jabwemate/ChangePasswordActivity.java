@@ -27,7 +27,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
    EditText NewPasswordEdittext,ConfirmPasswordEdittext;
    Button ConfirmButton;
    String UserID;
-   String realpassword;
    private FirebaseAuth firebaseAuth;
    private FirebaseFirestore firestore;
    ProgressDialog ChangePasssowrdProgressDialog;
@@ -54,21 +53,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
       UserID = firebaseAuth.getCurrentUser().getUid();
 
-      DocumentReference documentReference =firestore.collection("Users").document(UserID);
-
-      documentReference.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-         @Override
-         public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-
-            if(task.isSuccessful()){
-               DocumentSnapshot documentSnapshot = task.getResult();
-               assert documentSnapshot != null;
-               realpassword = String.valueOf(documentSnapshot.getString("password"));
-            }
-
-         }
-      });
-
       ConfirmButton = findViewById(R.id.confirm_button);
 
       ConfirmButton.setOnClickListener(new View.OnClickListener() {
@@ -77,10 +61,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
             passwordChange();
          }
       });
-
-
-
-
 
    }
 
@@ -145,6 +125,13 @@ public class ChangePasswordActivity extends AppCompatActivity {
                   }
                });
 
+            }
+
+            else {
+               Toast.makeText(getApplicationContext(),"Some error occurred. Can't change password right now"
+               ,Toast.LENGTH_LONG).show();
+
+               ChangePasssowrdProgressDialog.dismiss();
             }
 
          }
