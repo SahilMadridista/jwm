@@ -211,6 +211,11 @@ public class HomePage extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),myDog.class));
                 break;
 
+            case R.id.buysell:
+
+                startActivity(new Intent(getApplicationContext(),BuySellActivity.class));
+                break;
+
             case R.id.requests:
 
                 //Add code here

@@ -21,6 +21,20 @@
     android:background="@drawable/dogdescriptionbg"
     tools:context=".DetailActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:id="@+id/dog_detail_toolbar"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_editor_absoluteX="131dp">
+
+    </androidx.appcompat.widget.Toolbar>
+
     <RelativeLayout
         android:id="@+id/relativeLayout2"
         android:layout_width="130dp"

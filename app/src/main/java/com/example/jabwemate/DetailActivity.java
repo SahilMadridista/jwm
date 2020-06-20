@@ -18,14 +18,21 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
+
+import com.example.jabwemate.consts.SharedPrefConsts;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -38,6 +45,7 @@ public class DetailActivity extends AppCompatActivity {
     private String owner, dog, breed, age, city, gender, ID, URL,URL_list;
     private FirebaseFirestore dogs_db = FirebaseFirestore.getInstance();
     private ImageView image;
+    androidx.appcompat.widget.Toolbar toolbar;
     ProgressDialog progressDialog;
 
     @Override
@@ -54,6 +62,10 @@ public class DetailActivity extends AppCompatActivity {
         MakeRequest = findViewById(R.id.detail_make_req);
         SeeAllPhotos = findViewById(R.id.see_all_photos_details);
         image = findViewById(R.id.desc_dog_image);
+
+        toolbar = findViewById(R.id.dog_detail_toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);
 
         progressDialog = new ProgressDialog(this);
         progressDialog.setMessage("Loading information...");
@@ -73,6 +85,31 @@ public class DetailActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.report_menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch (item.getItemId()) {
+
+            case R.id.report_item:
+
+                Toast.makeText(getApplicationContext(),"Report button clicked",Toast.LENGTH_LONG)
+                        .show();
+
+            default:
+                return super.onOptionsItemSelected(item);
+
+        }
+
+    }
+
 
     private void setView() {
 
